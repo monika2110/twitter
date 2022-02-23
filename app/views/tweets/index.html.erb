@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Home</h1>
+<%= render 'form', tweet: @tweet %>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+
+        <td><strong><%= tweet.user.name     %></strong></td>
+        <td><small>@<%= tweet.user.username %></small></td>
+        <td><%= tweet.tweet %></td>
+
+        <td><%= link_to 'Show', tweet %></td>
+        <% if user_signed_in? && current_user.id == tweet.user_id %>
+        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
+        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+          <%end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
