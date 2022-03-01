@@ -1,0 +1,14 @@
+<h1><%= @user.username %></h1>
+<h5><%= @user.email%></h5>
+<% unless @user == current_user%>
+<% if  @relation.present?%>
+  <%= button_to 'Unfollow', relation_path(@relation.id), method: :delete %>
+  <%else %>
+  <%= button_to 'Follow', user_relations_path(@user), method: :post %>
+  <%end %>
+<%end %>
+
+<h3><%= @user.followers.count %> Followers </h3>
+<h3><%= @user.followees.count %> Following </h3>
+
+

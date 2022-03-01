@@ -6,6 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :tweets
+  has_many :followers, foreign_key: :followee_id, class_name: "Relation"
+  has_many :followees, foreign_key: :follower_id, class_name: "Relation"
+
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
 end
