@@ -2,10 +2,11 @@
 
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!
   # GET /tweets or /tweets.json
   def index
-    @tweets = Tweet.all.order('created_at DESC')
+    followee_id = Relation.select(:followee_id).where(follower_id: current_user.id)
+    @tweets = Tweet.all.where(user_id: followee_id).order('created_at DESC')
     @tweet = Tweet.new
   end
 
@@ -67,6 +68,6 @@ class TweetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tweet_params
-    params.require(:tweet).permit(:tweet)
+    params.require(:tweet).permit(:content)
   end
 end
