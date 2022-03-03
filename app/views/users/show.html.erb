@@ -1,14 +1,16 @@
-<h1><%= @user.username %></h1>
-<h5><%= @user.email%></h5>
-<% unless @user == current_user%>
-<% if  @relation.present?%>
-  <%= button_to 'Unfollow', relation_path(@relation.id), method: :delete %>
-  <%else %>
-  <%= button_to 'Follow', user_relations_path(@user), method: :post %>
+<body>
+<% if user_signed_in? && current_user.id == @user.id %>
+<%= link_to "Edit account", edit_user_registration_path%> &ensp;
   <%end %>
-<%end %>
+<h1><%= @user.name %></h1>
+<h4>@<%= @user.username%></h4>
+<%= render 'follow_button' %>
 
-<h3><%= @user.followers.count %> Followers </h3>
-<h3><%= @user.followees.count %> Following </h3>
+<p><%= @user.followees.count %> Following&emsp;<%= pluralize(@user.followers.count , "Follower") %> </p>
+
+<h3>Tweets</h3>
+<%= render 'tweets/tweet' %>
+
+
 
 

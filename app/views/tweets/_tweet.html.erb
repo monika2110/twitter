@@ -1,0 +1,18 @@
+<br><body>
+<% @tweets.each do |tweet| %>
+
+
+  <strong><%= link_to tweet.user.name, user_path(tweet.user_id)   %></strong>
+  <small>&ensp;@<%= tweet.user.username  %></small>
+  <p><%= tweet.content %>
+
+    <%= link_to 'Show', tweet %>
+    <% if user_signed_in? && current_user.id == tweet.user_id %>
+      <%= link_to 'Edit', edit_tweet_path(tweet) %>
+      <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%end %></p>
+  <%= button_to "Reply", new_tweet_reply_path(tweet), method: :get %> <br>
+
+<% end %> <br>
+</body><br> <br>
+

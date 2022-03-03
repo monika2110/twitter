@@ -1,4 +1,16 @@
 <% @users.each do |user| %>
-  <%= user.username %><br/>
-  <%= user.email %><br/>
+  <% unless user == current_user %>
+    <%relation = user.followers.find_by(follower: current_user) %>
+  <strong><%= link_to user.name, user_path(user)   %></strong>
+  <small>@<%= user.username  %></small>
+    <% if  relation.present? %>
+      <%= button_to 'Unfollow', relation_path(relation.id), method: :delete %>
+    <%else %>
+      <%= button_to 'Follow', user_relations_path(user), method: :post %>
+    <%end %>
+  <%end %>
+
+  <br>
 <% end %>
+
+

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :tweets
   has_many :followers, foreign_key: :followee_id, class_name: "Relation"
   has_many :followees, foreign_key: :follower_id, class_name: "Relation"
+  has_many :replies
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true

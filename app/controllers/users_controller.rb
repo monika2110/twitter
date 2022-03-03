@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show]
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+
   end
 
   # # GET /users/1
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @relation = @user.followers.find_by(follower: current_user)
+    @tweets = Tweet.all.where(user_id: @user.id).order('created_at DESC')
 
 
   end

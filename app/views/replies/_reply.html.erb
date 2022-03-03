@@ -1,0 +1,10 @@
+<strong><%= link_to reply.user.name, user_path(reply.user_id)   %></strong>
+<small>&ensp;@<%= reply.user.username  %></small> <br>
+<small>Replying to &ensp;@<%= @tweet.user.username  %></small>
+
+<p><%= reply.content %>
+
+  <% if user_signed_in? && current_user.id == reply.user_id %>
+    <%= link_to 'Edit', edit_tweet_reply_path(reply.tweet, reply) %>
+    <%= link_to 'Destroy', tweet_reply_path(reply.tweet, reply), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%end %></p><br>
