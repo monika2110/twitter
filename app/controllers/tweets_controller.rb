@@ -13,7 +13,6 @@ class TweetsController < ApplicationController
   # GET /tweets/1 or /tweets/1.json
   def show;
     @reply = Reply.new
-
     @replies = Reply.where(tweet_id: @tweet.id).order('created_at DESC')
   end
 

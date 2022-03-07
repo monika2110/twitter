@@ -5,9 +5,31 @@
   <% if user_signed_in? && current_user.id == @tweet.user_id %>
     <%= link_to 'Edit', edit_tweet_path(@tweet) %>
     <%= link_to 'Destroy', @tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%end %></p><br>
+  <%end %></p>
+
+<p>
+<div id="reply_count"> <%= @tweet.replies.count %></div>
+<div id="reply">
+  <%= button_to "Reply", new_tweet_reply_path(@tweet), method: :get %>
+</div> &ensp;&ensp;
+
+
+
+<%like =current_user.likes.find_by(tweet: @tweet) %>
+
+<div id="reply_count"> <%= @tweet.likes.count %></div>
+<% if like.nil? %>
+  <div id="like">
+    <%= button_to 'Like', tweet_likes_path(@tweet), method: :post %>
+  </div>
+
+  <%else %>
+  <div id="like">
+    <%= button_to 'Unlike', like_path(like), method: :delete %>
+
+  </div> &ensp;&ensp;
+  <%end %></p> <br>
 
 <%= render partial: 'replies/form' , locals: { reply: @reply}%>
 
 <%= render @replies,  locals: { reply: @replies}%><br>
-

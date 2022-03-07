@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_01_092522) do
+ActiveRecord::Schema.define(version: 2022_03_03_092509) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "tweet_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tweet_id"], name: "index_likes_on_tweet_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
 
   create_table "relations", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.text "content"
+    t.integer "tweet_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tweet_id"], name: "index_replies_on_tweet_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -40,4 +59,8 @@ ActiveRecord::Schema.define(version: 2022_03_01_092522) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "tweets"
+  add_foreign_key "likes", "users"
+  add_foreign_key "replies", "tweets"
+  add_foreign_key "replies", "users"
 end

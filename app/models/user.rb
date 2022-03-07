@@ -5,10 +5,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :tweets
+  has_many :tweets, dependent: :destroy
   has_many :followers, foreign_key: :followee_id, class_name: "Relation"
   has_many :followees, foreign_key: :follower_id, class_name: "Relation"
-  has_many :replies
+  has_many :replies, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
