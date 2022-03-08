@@ -1,6 +1,6 @@
 <h1>Editing Reply</h1>
 
-<%= render 'form', reply: @reply %>
+<%= render 'form',  replyable: @replyable%>
 
 <%= link_to 'Show', "#"%> |
-<%= link_to 'Back', tweet_path(@tweet) %>
+<%= link_to 'Back', tweet_path(@replyable) %>

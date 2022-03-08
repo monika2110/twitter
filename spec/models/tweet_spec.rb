@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Tweet, type: :model do
-  current_user = User.first_or_create!(name:'user', username: 'user', email: 'user@example.com', password: 'password', password_confirmation: 'password')
+  current_user = User.first_or_create!(name: 'user', username: 'user', email: 'user@example.com', password: 'password',
+                                       password_confirmation: 'password')
   it 'has content' do
     tweet = Tweet.new(
       content: '',
@@ -12,7 +15,6 @@ RSpec.describe Tweet, type: :model do
 
     tweet.content = 'content'
     expect(tweet).to be_valid
-
   end
 
   it 'has maximum 280 characters' do
@@ -27,19 +29,12 @@ RSpec.describe Tweet, type: :model do
     expect(tweet).to be_valid
   end
 
-
   it 'must have a user' do
-
-  tweet = Tweet.new(
-    content: 'content',
-  )
-
-  expect(tweet).to_not be_valid
-
-  tweet.user = current_user
-  expect(tweet).to be_valid
-
-
+    tweet = Tweet.new(
+      content: 'content'
+    )
+    expect(tweet).to_not be_valid
+    tweet.user = current_user
+    expect(tweet).to be_valid
   end
-
 end

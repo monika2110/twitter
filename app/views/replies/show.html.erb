@@ -1,19 +1,23 @@
 <p id="notice"><%= notice %></p>
+<strong><%= link_to @reply.user.name, user_path(@reply.user_id)   %></strong>
+<small>&ensp;@<%= @reply.user.username  %></small> <br>
+<p><%= @reply.content %>
 
-<p>
-  <strong>Content:</strong>
-  <%= @reply.content %>
-</p>
+  <% if user_signed_in? && current_user.id == @reply.user_id %>
+    <%= link_to 'Edit', edit_tweet_reply_path(@reply.replyable, @reply) %>
+    <%= link_to 'Destroy', tweet_reply_path(@reply.replyable, @reply), method: :delete%>
+    <%= link_to 'Show', tweet_reply_path(@reply.replyable, @reply) %>
 
-<p>
-  <strong>Tweet:</strong>
-  <%= @reply.tweet_id %>
-</p>
+  <%end %></p><br>
 
-<p>
-  <strong>User:</strong>
-  <%= @reply.user_id %>
-</p>
 
-<%= link_to 'Edit', edit_reply_path(@reply) %> |
-<%= link_to 'Back', replies_path %>
+<div id="reply_like_count"> <%= @reply.replies.count %></div>
+<div id="reply">
+  <%= button_to "Reply", new_reply_reply_path(@reply), method: :get %>
+</div> &ensp;&ensp;
+
+<%= render partial: 'replies/form' , locals: { reply: @reply, replyable: @reply}%>
+
+<%= render @reply.replies.order('created_at DESC')%><br>
+
+<%= link_to 'Back', @reply %>

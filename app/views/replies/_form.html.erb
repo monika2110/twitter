@@ -1,21 +1,9 @@
-<%= form_for([@tweet, @reply]) do |form| %>
-  <% if reply.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
+<%= form_for([replyable, Reply.new]) do |form| %>
 
-      <ul>
-        <% reply.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= form.text_area :content, placeholder: "Tweet your reply" %>
   </div>
-
-
 
 
   <div class="actions">

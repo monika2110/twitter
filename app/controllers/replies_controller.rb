@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class RepliesController < ApplicationController
-  before_action :set_reply, only: %i[show edit update destroy]
-  before_action :set_tweet
+  before_action :set_reply, only: %i[edit update destroy show]
+  before_action :set_replyable
   before_action :authenticate_user!
 
   # GET /replies or /replies.json
@@ -12,11 +12,12 @@ class RepliesController < ApplicationController
   end
 
   # GET /replies/1 or /replies/1.json
-  def show; end
+  def show;
+
+  end
 
   # GET /replies/new
   def new
-    @reply = Reply.new
   end
 
   # GET /replies/1/edit
@@ -24,12 +25,11 @@ class RepliesController < ApplicationController
 
   # POST /replies or /replies.json
   def create
-    @reply = Reply.new(reply_params)
-    @reply.user_id = current_user.id
-    @reply.tweet_id = @tweet.id
+    @reply = @replyable.replies.new(reply_params)
+    @reply.user = current_user
     respond_to do |format|
       if @reply.save
-        format.html { redirect_to @tweet, notice: 'Reply was successfully created.' }
+        format.html { redirect_to @replyable, notice: 'Reply was successfully created.' }
         format.json { render :show, status: :created, location: @reply }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class RepliesController < ApplicationController
   def update
     respond_to do |format|
       if @reply.update(reply_params)
-        format.html { redirect_to @tweet, notice: 'Reply was successfully updated.' }
+        format.html { redirect_to @replyable, notice: 'Reply was successfully updated.' }
         format.json { render :show, status: :ok, location: @reply }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class RepliesController < ApplicationController
     @reply.destroy
 
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path)}
+      format.html { redirect_to @replyable}
       format.json { head :no_content }
     end
   end
@@ -69,12 +69,17 @@ class RepliesController < ApplicationController
     @reply = Reply.find(params[:id])
   end
 
-  def set_tweet
-    @tweet = Tweet.find(params[:tweet_id])
+  def set_replyable
+    if params[:reply_id]
+    @replyable = Reply.find_by_id(params[:reply_id])
+    elsif params[:tweet_id]
+    @replyable = Tweet.find_by_id(params[:tweet_id])
+    end
+
   end
 
   # Only allow a list of trusted parameters through.
   def reply_params
-    params.require(:reply).permit(:content, :tweet_id, :user_id)
+    params.require(:reply).permit(:content)
   end
 end

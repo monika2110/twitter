@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.text_area :content, placeholder: "What's happening?"%>
+    <%= form.text_area :content, placeholder: "What's happening?", class: "form-control"%>
 
 
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions" >
+    <%= form.submit "Tweet", class:"btn btn-secondary" %>
   </div>
 <% end %>

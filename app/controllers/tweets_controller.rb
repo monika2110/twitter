@@ -6,14 +6,12 @@ class TweetsController < ApplicationController
   # GET /tweets or /tweets.json
   def index
     followee_id = Relation.select(:followee_id).where(follower_id: current_user.id)
-    @tweets = Tweet.all.where(user_id: [followee_id, current_user.id]).order('created_at DESC')
+    @tweets = (Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).order('created_at DESC')
     @tweet = Tweet.new
   end
 
   # GET /tweets/1 or /tweets/1.json
   def show
-    @reply = Reply.new
-    @replies = Reply.where(tweet_id: @tweet.id).order('created_at DESC')
   end
 
   # GET /tweets/new

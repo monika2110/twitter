@@ -1,11 +1,11 @@
-<strong><%= link_to @tweet.user.name, user_path(@tweet.user_id)   %></strong>
-<small>&ensp;@<%= @tweet.user.username  %></small>
-<p><%= @tweet.content %>
+<strong><%= link_to @replyable.user.name, user_path(@replyable.user_id)   %></strong>
+<small>&ensp;@<%= @replyable.user.username  %></small>
+<p><%= @replyable.content %>
 
-  <% if user_signed_in? && current_user.id == @tweet.user_id %>
-    <%= link_to 'Edit', edit_tweet_path(@tweet) %>
-    <%= link_to 'Destroy', @tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% if user_signed_in? && current_user.id == @replyable.user_id %>
+    <%= link_to 'Edit', edit_tweet_path(@replyable) %>
+    <%= link_to 'Destroy', @replyable, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%end %></p><br>
-<%= render 'form', reply: @reply %>
+<%= render 'form',  replyable: @replyable%>
 
 <%= link_to 'Back', "#" %>

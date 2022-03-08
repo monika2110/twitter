@@ -8,7 +8,7 @@
   <%end %></p>
 
 <p>
-<div id="reply_count"> <%= @tweet.replies.count %></div>
+<div id="reply_like_count"> <%= @tweet.replies.count %></div>
 <div id="reply">
   <%= button_to "Reply", new_tweet_reply_path(@tweet), method: :get %>
 </div> &ensp;&ensp;
@@ -17,7 +17,7 @@
 
 <%like =current_user.likes.find_by(tweet: @tweet) %>
 
-<div id="reply_count"> <%= @tweet.likes.count %></div>
+<div id="reply_like_count"> <%= @tweet.likes.count %></div>
 <% if like.nil? %>
   <div id="like">
     <%= button_to 'Like', tweet_likes_path(@tweet), method: :post %>
@@ -28,8 +28,9 @@
     <%= button_to 'Unlike', like_path(like), method: :delete %>
 
   </div> &ensp;&ensp;
-  <%end %></p> <br>
+  <%end %>
+</p> <br>
 
-<%= render partial: 'replies/form' , locals: { reply: @reply}%>
+<%= render partial: 'replies/form' , locals: { replyable: @tweet}%>
 
-<%= render @replies,  locals: { reply: @replies}%><br>
+<%= render @tweet.replies.order('created_at DESC')%><br>

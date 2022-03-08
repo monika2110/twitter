@@ -1,10 +1,16 @@
 <strong><%= link_to reply.user.name, user_path(reply.user_id)   %></strong>
 <small>&ensp;@<%= reply.user.username  %></small> <br>
-<small>Replying to &ensp;@<%= @tweet.user.username  %></small>
+<%if reply.replyable_type == 'Reply' %>
+<small>Replying to &ensp;@<%= @reply.user.username  %></small>
+  <%else %>
+  <small>Replying to &ensp;@<%= @tweet.user.username  %></small>
+<%end %>
 
-<p><%= reply.content %>
+  <p><%= reply.content %>
 
   <% if user_signed_in? && current_user.id == reply.user_id %>
-    <%= link_to 'Edit', edit_tweet_reply_path(reply.tweet, reply) %>
-    <%= link_to 'Destroy', tweet_reply_path(reply.tweet, reply), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%end %></p><br>
+    <%= link_to 'Edit', edit_tweet_reply_path(reply.replyable, reply) %>
+    <%= link_to 'Destroy', tweet_reply_path(reply.replyable, reply), method: :delete%>
+    <%= link_to 'Show', tweet_reply_path(reply.replyable, reply) %>
+
+<%end %></p><br>
