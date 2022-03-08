@@ -37,3 +37,5 @@ class LikesController < ApplicationController
       params.require(:like).permit(:tweet_id)
     end
 end
+
+

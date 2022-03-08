@@ -1,0 +1,76 @@
+@import 'bootstrap';
+
+
+.h-scroll {
+  height: 100vh;
+  position: fixed;
+  overflow:auto;
+}
+
+#reply , #like, #reply_like_count {
+  display:inline-block;
+  margin-top: 6pt;}
+
+.col-6 {
+    border-left: 1px solid #eff3f4;
+  border-right: 1px solid #eff3f4;
+
+}
+
+#nav_link {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.form-control {
+  resize: none;
+
+}
+
+button {
+  background: white;
+  border-radius: 50%;
+  border: none;
+
+
+
+}
+
+button:hover {
+  background-color: lightpink;
+
+}
+
+
+.bi-chat {
+  margin-bottom: 2px;
+  margin-top: -2px;
+}
+
+.btn-primary {
+  background-color: #1DA1F2;
+  border: none;
+  border-radius: 25px;
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+}
+
+.btn-secondary {
+  background-color: #1DA1F2;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  width: 90px;
+  height: 38px;
+  float: right;
+}
+
+.btn-secondary:hover {
+  background-color: #1d7cb7;
+
+}
+
+.btn-primary:hover {
+  background-color: #1d7cb7;
+}

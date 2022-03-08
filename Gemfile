@@ -58,3 +58,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'devise', '~> 4.8'
 gem 'gravatar_image_tag', '~> 1.2'
 gem 'rubocop', require: false
+
+gem 'bootstrap', '~> 5.0.2'
+

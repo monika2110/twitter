@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RepliesController < ApplicationController
-  before_action :set_reply, only: %i[ show edit update destroy ]
+  before_action :set_reply, only: %i[show edit update destroy]
   before_action :set_tweet
   before_action :authenticate_user!
 
@@ -7,22 +9,18 @@ class RepliesController < ApplicationController
   def index
     @replies = Reply.all
     @reply = Reply.new
-
   end
 
   # GET /replies/1 or /replies/1.json
-  def show
-  end
+  def show; end
 
   # GET /replies/new
   def new
     @reply = Reply.new
-
   end
 
   # GET /replies/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /replies or /replies.json
   def create
@@ -31,7 +29,7 @@ class RepliesController < ApplicationController
     @reply.tweet_id = @tweet.id
     respond_to do |format|
       if @reply.save
-        format.html { redirect_to @tweet, notice: "Reply was successfully created." }
+        format.html { redirect_to @tweet, notice: 'Reply was successfully created.' }
         format.json { render :show, status: :created, location: @reply }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +42,7 @@ class RepliesController < ApplicationController
   def update
     respond_to do |format|
       if @reply.update(reply_params)
-        format.html { redirect_to @tweet, notice: "Reply was successfully updated." }
+        format.html { redirect_to @tweet, notice: 'Reply was successfully updated.' }
         format.json { render :show, status: :ok, location: @reply }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,25 +53,28 @@ class RepliesController < ApplicationController
 
   # DELETE /replies/1 or /replies/1.json
   def destroy
+    @reply = Reply.find(params[:id])
     @reply.destroy
 
     respond_to do |format|
-      format.html { redirect_to @tweet, notice: "Reply was successfully destroyed." }
+      format.html { redirect_back(fallback_location: root_path)}
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reply
-      @reply = Reply.find(params[:id])
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_reply
+    @reply = Reply.find(params[:id])
+  end
+
   def set_tweet
     @tweet = Tweet.find(params[:tweet_id])
   end
 
-    # Only allow a list of trusted parameters through.
-    def reply_params
-      params.require(:reply).permit(:content, :tweet_id, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def reply_params
+    params.require(:reply).permit(:content, :tweet_id, :user_id)
+  end
 end
