@@ -1,0 +1,10 @@
+<%= form_for([retweetable, Retweet.new]) do |form| %>
+  <div class="field">
+    <%= form.text_area :content, placeholder: "Tweet your reply" %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
