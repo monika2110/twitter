@@ -11,8 +11,7 @@ class TweetsController < ApplicationController
   end
 
   # GET /tweets/1 or /tweets/1.json
-  def show
-  end
+  def show; end
 
   # GET /tweets/new
   def new

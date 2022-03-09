@@ -13,9 +13,7 @@
   <%= button_to "Reply", new_tweet_reply_path(@tweet), method: :get %>
 </div> &ensp;&ensp;
 
-
-
-<%like =current_user.likes.find_by(tweet: @tweet) %>
+<%like =current_user.likes.find_by(likeable: @tweet) %>
 
 <div id="reply_like_count"> <%= @tweet.likes.count %></div>
 <% if like.nil? %>

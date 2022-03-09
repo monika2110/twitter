@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :likes
   devise_for :users
   resources :tweets do
     resources :replies
@@ -11,9 +10,13 @@ Rails.application.routes.draw do
   resources :replies do
     resources :replies
     resources :retweets
+    resources :likes, only: [:create]
+
   end
   resources :retweets do
     resources :retweets
+    resources :likes, only: [:create]
+
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -24,4 +27,5 @@ Rails.application.routes.draw do
   end
   resources :relations, only: [:destroy]
   resources :likes, only: [:destroy]
+
 end

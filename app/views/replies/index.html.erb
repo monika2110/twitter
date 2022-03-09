@@ -16,10 +16,10 @@
     <% @replies.each do |reply| %>
       <tr>
         <td><%= reply.content %></td>
-        <td><%= reply.tweet_id %></td>
+        <td><%= reply.replyable %></td>
         <td><%= reply.user_id %></td>
 
-        <%= link_to 'Destroy', tweet_reply_path(reply.tweet, reply), method: :delete%>
+        <%= link_to 'Destroy', tweet_reply_path(reply.replyable, reply), method: :delete%>
       </tr>
     <% end %>
   </tbody>

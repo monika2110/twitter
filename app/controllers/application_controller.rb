@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
     @tweets = (Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).order('created_at DESC')
     @tweet = Tweet.new
     @retweets = (Retweet.where(user_id: followee_id).or(Retweet.where(user_id: current_user.id))).order('created_at DESC')
-    @combine = ((Retweet.where(user_id: followee_id).or(Retweet.where(user_id: current_user.id)))+(Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id)))).sort_by(&:created_at).reverse
-
+    @combine = (Retweet.where(user_id: followee_id).or(Retweet.where(user_id: current_user.id)) + Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).sort_by(&:created_at).reverse
   end
-
 end

@@ -12,13 +12,10 @@ class RepliesController < ApplicationController
   end
 
   # GET /replies/1 or /replies/1.json
-  def show;
-
-  end
+  def show; end
 
   # GET /replies/new
-  def new
-  end
+  def new; end
 
   # GET /replies/1/edit
   def edit; end
@@ -57,7 +54,7 @@ class RepliesController < ApplicationController
     @reply.destroy
 
     respond_to do |format|
-      format.html { redirect_to @replyable}
+      format.html { redirect_to @replyable }
       format.json { head :no_content }
     end
   end
@@ -71,11 +68,10 @@ class RepliesController < ApplicationController
 
   def set_replyable
     if params[:reply_id]
-    @replyable = Reply.find_by_id(params[:reply_id])
+      @replyable = Reply.find_by_id(params[:reply_id])
     elsif params[:tweet_id]
-    @replyable = Tweet.find_by_id(params[:tweet_id])
+      @replyable = Tweet.find_by_id(params[:tweet_id])
     end
-
   end
 
   # Only allow a list of trusted parameters through.

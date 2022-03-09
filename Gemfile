@@ -60,4 +60,3 @@ gem 'gravatar_image_tag', '~> 1.2'
 gem 'rubocop', require: false
 
 gem 'bootstrap', '~> 5.0.2'
-
