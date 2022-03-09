@@ -1,14 +1,17 @@
 <br><body>
+<%= render 'tweets/form', tweet: @tweet %>
+
 <% @combine.each do |tweet| %>
 
 <% if tweet.is_a?(Retweet) %>
     <strong><%= link_to tweet.user.name, user_path(tweet.user_id)   %></strong>
     <small>&ensp;@<%= tweet.user.username  %></small>
-    <p><%= tweet.content %> <br>
+    <p><%= tweet.content %>
+    <div class='retweet'>
     <strong><%= link_to tweet.retweetable.user.name, user_path(tweet.retweetable.user_id)   %></strong>
     <small>&ensp;@<%= tweet.retweetable.user.username  %></small>
     <p><%= tweet.retweetable.content %> <br>
-
+    </div>
 
       <% %>
   <%else %>
@@ -22,7 +25,7 @@
     <% if user_signed_in? && current_user.id == tweet.user_id %>
       <%= link_to 'Edit', edit_tweet_path(tweet) %>
       <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <%end %>
+    <%end %> <br>
   <div id="reply">
     <%= button_to new_tweet_reply_path(tweet), method: :get do %>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#505050	" class="bi bi-chat" viewBox="0 0 16 16">
@@ -30,7 +33,7 @@
       </svg>
     <%end %>
   </div>
-  <div id="reply_like_count"> <%= tweet.replies.count unless tweet.replies.count<= 0%>  &ensp;&ensp; </div>&ensp;&ensp;
+  <div id="count"> <%= tweet.replies.count%></div>&ensp;&ensp;
   <% like = tweet.likes.find_by(user_id: current_user) %>
   <% if like.present? %>
     <div id="like">
@@ -40,25 +43,33 @@
         </svg>
       <%end %>
     </div>
-    <div id="reply_like_count"> <%= tweet.likes.count %></div>
+    <div id="count"> <%= tweet.likes.count %></div>&ensp;&ensp;
 
   <%else %>
-    <div id="like">
       <% if tweet.is_a?(Retweet) %>
+      <div id="like">
+
     <%= button_to retweet_likes_path(tweet), method: :post do%>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#505050" class="bi bi-heart" viewBox="0 0 16 16">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
           </svg>
+          </div>
         <%end %>
       <%elsif tweet.is_a?(Tweet) %>
+      <div id="like">
+
           <%= button_to tweet_likes_path(tweet), method: :post do%>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#505050" class="bi bi-heart" viewBox="0 0 16 16">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
           </svg>
         <%end %>
-            <%end %>
+      </div>
+    <%end %>
 
-    </div>
+    <div id="count"> <%= tweet.likes.count %></div>&ensp;&ensp;
+
+
+
   <%end %>
 
 
@@ -74,27 +85,31 @@
           </svg>
         <%end %>
       </div>
-      <div id="reply_like_count"> <%= tweet.retweets.count %></div>
+      <div id="count"> <%= tweet.retweets.count %></div>
     <%else %>
+    <% if tweet.is_a?(Retweet) %>
+
     <div id="retweet">
-      <% if tweet.is_a?(Retweet) %>
         <%= button_to retweet_retweets_path(tweet), method: :post do%>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
           </svg>
+        </div>
         <%end %>
       <%elsif tweet.is_a?(Tweet) %>
+        <div id="retweet">
         <%= button_to tweet_retweets_path(tweet), method: :post do%>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
           </svg>
         <%end %>
-      <%end %>
+        </div>
 
-    </div>
-    <div id="reply_like_count"> <%= tweet.likes.count %></div>
+<%end %>
+
+    <div id="count"> <%= tweet.retweets.count %></div>
 
   <%end %>
 

@@ -7,7 +7,7 @@
   overflow:auto;
 }
 
-#reply , #like, #reply_like_count {
+#reply , #like, #count, #retweet {
   display:inline-block;
   margin-top: 6pt;}
 
@@ -73,4 +73,8 @@ button:hover {
 
 .btn-primary:hover {
   background-color: #1d7cb7;
+}
+
+.retweet {
+  padding-left: 12px;
 }

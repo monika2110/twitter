@@ -18,7 +18,7 @@
       </svg>
       <%end %>
   </div>
-  <div id="reply_like_count"> <%= tweet.replies.count unless tweet.replies.count<= 0%> </div>&ensp;&ensp;
+  <div id="count"> <%= tweet.replies.count unless tweet.replies.count<= 0%> </div>&ensp;&ensp;
   <% like = tweet.likes.find_by(user_id: current_user) %>
   <% if like.present? %>
       <div id="like">
@@ -28,7 +28,7 @@
             </svg>
           <%end %>
       </div>
-    <div id="reply_like_count"> <%= tweet.likes.count %></div>
+    <div id="count"> <%= tweet.likes.count %></div>
 
     <%else %>
       <div id="like">
@@ -38,7 +38,7 @@
           </svg>
         <%end %>
   </div>
-    <div id="reply_like_count"> <%= tweet.likes.count %></div>
+    <div id="count"> <%= tweet.likes.count %></div>
 
       <%end %>
 

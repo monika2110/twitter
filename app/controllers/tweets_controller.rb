@@ -27,7 +27,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to tweets_url(@tweet) }
+        format.html { redirect_back(fallback_location: root_path)  }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class TweetsController < ApplicationController
     @tweet.destroy
 
     respond_to do |format|
-      format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
+      format.html {  redirect_back(fallback_location: root_path)  }
       format.json { head :no_content }
     end
   end
