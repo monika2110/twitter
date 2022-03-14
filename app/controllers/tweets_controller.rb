@@ -27,7 +27,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_back(fallback_location: root_path)  }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -68,6 +68,6 @@ class TweetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tweet_params
-    params.require(:tweet).permit(:content)
+    params.require(:tweet).permit(:content, :source_id, :source_type)
   end
 end

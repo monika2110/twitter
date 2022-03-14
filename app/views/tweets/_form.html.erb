@@ -1,10 +1,6 @@
-<%= form_with(model: tweet) do |form| %>
-
-
+<%= form_with(model: Tweet) do |form| %>
   <div class="field">
     <%= form.text_area :content, placeholder: "What's happening?", class: "form-control"%>
-
-
   </div>
 
   <div class="actions" >
