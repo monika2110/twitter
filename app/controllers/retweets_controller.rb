@@ -79,6 +79,6 @@ class RetweetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def retweet_params
-    params.fetch(:retweet, {})
+    params.fetch(:retweet, {}).permit!
   end
 end
