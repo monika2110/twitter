@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop:disable all
 
 require 'rails_helper'
 
@@ -26,61 +26,81 @@ RSpec.describe '/replies', type: :request do
     skip('Add a hash of attributes invalid for your model')
   end
 
+  current_user = User.first_or_create!(name: 'user', username: 'user', email: 'user@example.com', password: 'password',
+                                       password_confirmation: 'password')
+  tweet = Tweet.first_or_create!(content: 'content', user: current_user)
+
+  let(:invalid_attributes) do
+    {
+      'id' => 'a',
+      'content' => ''
+
+    }
+  end
+  let(:valid_attributes) do
+    {
+      'id' => '2',
+      'content' => 'content',
+      'user' => current_user,
+      'replyable_id' => tweet.id,
+      'replyable_type' => 'Tweet'
+    }
+  end
   describe 'GET /index' do
     it 'renders a successful response' do
-      Reply.create! valid_attributes
-      get replies_url
+      sign_in(current_user)
+      reply = Reply.new(valid_attributes)
+      reply.save
+      get tweet_replies_path(reply.replyable)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      reply = Reply.create! valid_attributes
-      get reply_url(reply)
+      sign_in(current_user)
+      reply = Reply.new(valid_attributes)
+      reply.save
+      get tweet_reply_path(reply.replyable, reply)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /new' do
     it 'renders a successful response' do
-      get new_reply_url
+      sign_in(current_user)
+      get new_tweet_reply_path(tweet)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /edit' do
-    it 'renders a successful response' do
-      reply = Reply.create! valid_attributes
-      get edit_reply_url(reply)
+    it 'render a successful response' do
+      sign_in(current_user)
+      reply = Reply.new(valid_attributes)
+      reply.save
+      get edit_tweet_reply_path(reply.replyable, reply)
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Reply' do
+      it 'creates a new Tweet' do
         expect do
-          post replies_url, params: { reply: valid_attributes }
+          sign_in(current_user)
+          reply = Reply.new(valid_attributes)
+          post tweet_replies_path(reply.replyable), params: { reply: valid_attributes }
         end.to change(Reply, :count).by(1)
-      end
-
-      it 'redirects to the created reply' do
-        post replies_url, params: { reply: valid_attributes }
-        expect(response).to redirect_to(reply_url(Reply.last))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Reply' do
+      it 'does not create a new Tweet' do
         expect do
-          post replies_url, params: { reply: invalid_attributes }
+          sign_in(current_user)
+          post tweet_replies_path(tweet.id), params: { reply: invalid_attributes }
         end.to change(Reply, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post replies_url, params: { reply: invalid_attributes }
-        expect(response).to be_successful
       end
     end
   end
@@ -88,45 +108,35 @@ RSpec.describe '/replies', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          'id' => '2',
+          'content' => 'new content',
+          'user' => current_user,
+          'replyable_id' => tweet.id,
+          'replyable_type' => 'Tweet'
+        }
       end
 
-      it 'updates the requested reply' do
-        reply = Reply.create! valid_attributes
-        patch reply_url(reply), params: { reply: new_attributes }
+      it 'updates the requested reply and redirects to the tweet' do
+        sign_in(current_user)
+        reply = Reply.new(valid_attributes)
+        reply.save
+        patch tweet_reply_path(reply.replyable, reply), params: { reply: new_attributes }
         reply.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the reply' do
-        reply = Reply.create! valid_attributes
-        patch reply_url(reply), params: { reply: new_attributes }
-        reply.reload
-        expect(response).to redirect_to(reply_url(reply))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        reply = Reply.create! valid_attributes
-        patch reply_url(reply), params: { reply: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).to redirect_to(tweet_url(reply.replyable))
       end
     end
   end
 
   describe 'DELETE /destroy' do
     it 'destroys the requested reply' do
-      reply = Reply.create! valid_attributes
+      sign_in(current_user)
+      reply = Reply.new(valid_attributes)
+      reply.save
       expect do
-        delete reply_url(reply)
+        delete tweet_reply_path(reply.replyable, reply)
       end.to change(Reply, :count).by(-1)
-    end
-
-    it 'redirects to the replies list' do
-      reply = Reply.create! valid_attributes
-      delete reply_url(reply)
-      expect(response).to redirect_to(replies_url)
+      expect(response).to redirect_to(root_path)
     end
   end
 end

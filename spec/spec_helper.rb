@@ -97,4 +97,7 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/test/fixtures"
+  config.before(:each, type: :request) do
+    host! 'localhost:3000'
+  end
 end

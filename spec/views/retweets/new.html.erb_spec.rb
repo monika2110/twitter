@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'retweets/new', type: :view do
   before(:each) do
-    assign(:retweet, Retweet.new)
+    assign(:source_id, Retweet.new)
   end
 
   it 'renders new retweet form' do

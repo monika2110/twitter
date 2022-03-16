@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'retweets/show', type: :view do
   before(:each) do
-    @retweet = assign(:retweet, Retweet.create!)
+    @source_id = assign(:source_id, Retweet.create!)
   end
 
   it 'renders attributes in <p>' do

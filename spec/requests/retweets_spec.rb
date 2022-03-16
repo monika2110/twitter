@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop:disable all
 
 require 'rails_helper'
 
@@ -61,12 +61,12 @@ RSpec.describe '/retweets', type: :request do
     context 'with valid parameters' do
       it 'creates a new Retweet' do
         expect do
-          post retweets_url, params: { retweet: valid_attributes }
+          post retweets_url, params: { source_id: valid_attributes }
         end.to change(Retweet, :count).by(1)
       end
 
       it 'redirects to the created retweet' do
-        post retweets_url, params: { retweet: valid_attributes }
+        post retweets_url, params: { source_id: valid_attributes }
         expect(response).to redirect_to(retweet_url(Retweet.last))
       end
     end
@@ -74,12 +74,12 @@ RSpec.describe '/retweets', type: :request do
     context 'with invalid parameters' do
       it 'does not create a new Retweet' do
         expect do
-          post retweets_url, params: { retweet: invalid_attributes }
+          post retweets_url, params: { source_id: invalid_attributes }
         end.to change(Retweet, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post retweets_url, params: { retweet: invalid_attributes }
+        post retweets_url, params: { source_id: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -93,14 +93,14 @@ RSpec.describe '/retweets', type: :request do
 
       it 'updates the requested retweet' do
         retweet = Retweet.create! valid_attributes
-        patch retweet_url(retweet), params: { retweet: new_attributes }
+        patch retweet_url(retweet), params: { source_id: new_attributes }
         retweet.reload
         skip('Add assertions for updated state')
       end
 
       it 'redirects to the retweet' do
         retweet = Retweet.create! valid_attributes
-        patch retweet_url(retweet), params: { retweet: new_attributes }
+        patch retweet_url(retweet), params: { source_id: new_attributes }
         retweet.reload
         expect(response).to redirect_to(retweet_url(retweet))
       end
@@ -109,7 +109,7 @@ RSpec.describe '/retweets', type: :request do
     context 'with invalid parameters' do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         retweet = Retweet.create! valid_attributes
-        patch retweet_url(retweet), params: { retweet: invalid_attributes }
+        patch retweet_url(retweet), params: { source_id: invalid_attributes }
         expect(response).to be_successful
       end
     end

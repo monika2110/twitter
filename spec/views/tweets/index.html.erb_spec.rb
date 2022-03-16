@@ -7,12 +7,12 @@ RSpec.describe 'tweets/index', type: :view do
                                        password_confirmation: 'password')
   before(:each) do
     assign(:tweets, [
-      Tweet.create!(
-        content: 'content',
+             Tweet.create!(
+               content: 'content',
                user: current_user
              ),
-      Tweet.create!(
-        content: 'content',
+             Tweet.create!(
+               content: 'content',
                user: current_user
              )
            ])
