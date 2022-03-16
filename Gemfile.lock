@@ -96,6 +96,7 @@ GEM
     diff-lcs (1.5.0)
     erubi (1.10.0)
     execjs (2.8.1)
+    ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -117,6 +118,8 @@ GEM
     minitest (5.15.0)
     msgpack (1.4.5)
     nio4r (2.5.8)
+    nokogiri (1.13.3-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.3-x64-mingw32)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -200,6 +203,8 @@ GEM
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -255,6 +260,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  arm64-darwin-21
   x64-mingw32
 
 DEPENDENCIES
@@ -283,4 +289,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.22
+   2.2.32
