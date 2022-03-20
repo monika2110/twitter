@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @tweet = Tweet.new
   end
 
   # # GET /users/1
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @relation = @user.followers.find_by(follower: current_user)
     @tweets = Tweet.all.where(user_id: @user.id).order('created_at DESC')
+    @tweet = Tweet.new
   end
 
   # GET /users/1/edit
@@ -26,6 +28,7 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+    @tweet = Tweet.new
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

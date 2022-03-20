@@ -7,16 +7,7 @@ class LikesController < ApplicationController
   def create
     @like = @likeable.likes.new(like_params)
     @like.user = current_user
-
-    respond_to do |format|
-      if @like.save
-        format.html { redirect_back(fallback_location: root_path) }
-        format.json { render :show, status: :created, location: @like }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
-      end
-    end
+    create_respond
   end
 
   # PATCH/PUT /likes/1 or /likes/1.json
@@ -44,8 +35,19 @@ class LikesController < ApplicationController
     end
   end
 
-  # Only allow a list of trusted parameters through.
   def like_params
     params.fetch(:like, {})
+  end
+
+  def create_respond
+    respond_to do |format|
+      if @like.save
+        format.html { redirect_back(fallback_location: root_path) }
+        format.json { render :show, status: :created, location: @like }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @like.errors, status: :unprocessable_entity }
+      end
+    end
   end
 end

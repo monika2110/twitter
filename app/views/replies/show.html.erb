@@ -46,12 +46,11 @@
       </svg>
     <%end %>
   </div>
-  <div id="count"> <%= @reply.retweets.count %></div>
 </div>
 
 <br>
 <p>
-  <%= render partial: 'replies/form' , locals: { replyable: @reply}%>
+  <%= render partial: 'replies/form' , locals: { replyable: @reply, tweet: @tweet}%>
 
 </p>
 

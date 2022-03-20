@@ -9,12 +9,16 @@
 
 #reply , #like, #count, #retweet {
   display:inline-block;
-  margin-top: 6pt;}
+  margin-top: 6pt;
+}
 
-.col-6 {
-    border-left: 1px solid #eff3f4;
+.col-lg-5 {
   border-right: 1px solid #eff3f4;
-
+  border-left: 1px solid #eff3f4;
+  .nav-home {
+    width: 41.5%;
+    z-index: 1;
+  }
 }
 
 #nav_link {
@@ -24,21 +28,12 @@
 
 .form-control {
   resize: none;
-
 }
 
 button {
   background: white;
   border-radius: 50%;
   border: none;
-
-
-
-}
-
-button:hover {
-  background-color: lightpink;
-
 }
 
 
@@ -68,7 +63,6 @@ button:hover {
 
 .btn-secondary:hover {
   background-color: #1d7cb7;
-
 }
 
 .btn-primary:hover {
@@ -77,4 +71,252 @@ button:hover {
 
 .retweet {
   padding-left: 12px;
+}
+
+.bi-arrow-repeat, .bi-box-arrow-up {
+  margin-bottom: 2px;
+  margin-top: -2px;
+  width: 16px;
+}
+
+.bi-heart-fill, .bi-heart {
+  margin-bottom: 1px;
+  margin-top: -1px;
+}
+
+.dropdown-item {
+  border-radius: unset;
+}
+
+.tweet-div:hover {
+  background-color: rgba(153, 153, 153, 0.05);
+  .reply_button, .like_button, .retweet_button {
+    background-color: rgba(153, 153, 153, 0);
+  }
+  .like_button:hover {
+    background-color: rgba(220, 20, 60, 0.24);
+    .bi-heart {
+      fill: crimson;
+    }
+  }
+
+  .retweet_button:hover {
+    background-color: rgba(99, 215, 125, 0.32);
+    .bi-arrow-repeat {
+      fill: #3ba954;
+    }
+  }
+
+  .reply_button:hover {
+    background-color: rgba(18, 152, 232, 0.2);
+    .bi-chat {
+      fill: #1298e8;
+    }
+  }
+
+}
+
+.tweet-div {
+  border-top: 1px solid #eff3f4;
+  margin-left: -12px;
+  margin-right: -12px;
+  break-inside: auto;
+  #buttons {
+    align-items: baseline;
+    justify-content: center;
+    padding-bottom: 10px;
+
+  }
+}
+
+.nav-item {
+  border-radius: 25px;
+  a {
+    margin-top: -14px;
+  }
+}
+
+.nav-item:hover {
+  background-color: rgba(153, 153, 153, 0.16);
+}
+
+li {
+  padding-top: 25px;
+}
+
+.logo{
+  border-radius: 50%;
+  padding: 10px 10px 15px;
+}
+.logo:hover {
+  background-color: rgba(29, 161, 242, 0.09);
+}
+
+#button {
+  margin-top: 6pt;
+  padding-left: 14%;
+  display: inline-block;
+  z-index: -2;
+}
+
+.tweet-field {
+  border-radius: 1px;
+  border: none;
+  font-size: larger;
+
+}
+
+.tweet-field:focus{
+  border-radius: 1px;
+  outline: none;
+  box-shadow: none;
+  border-bottom: 1px solid #eff3f4;
+}
+
+.form-control {
+  border-radius: 25px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+#dropdown-button {
+  padding: unset;
+}
+
+.dropdown-menu {
+  padding: unset;
+}
+
+.search {
+  position: relative;
+}
+
+.search:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 15px;
+  margin-left: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' fill='gray' class='bi bi-search' viewBox='0 0 16 16' fill-rule='evenodd'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.me-2 {
+  padding-left: 40px;
+}
+
+.name {
+  text-decoration: none;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  font-weight: bold;
+}
+
+#name {
+  padding: 10px 10px 10px;
+}
+
+.name:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.01em;
+}
+
+.login {
+  background-color: rgba(255, 250, 250, 0);
+  border: none;
+  border-radius: 25px;
+  height: 50px;
+  font-weight: bold;
+  width: 200px;
+}
+
+
+.login:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.username {
+  text-decoration: none;
+  padding: 12px;
+  font-weight: lighter;
+}
+
+.user {
+  padding-top: 260px;
+}
+
+.retweet {
+  border-radius: 10px;
+  border: 1px solid #dde1e3;
+  margin: 12px;
+}
+
+p {
+  padding-left: 12px;
+}
+
+.name_retweet {
+  padding-left: 22px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #706f6f;
+  font-size: 14px;
+}
+
+
+.modal-body {
+  font-size: large;
+}
+
+.modal-header .btn-close {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: unset;
+  margin-right: unset;
+  margin-left: 0.01rem;
+}
+
+.modal-content {
+  border-top: none;
+  border-radius: 15px;
+}
+
+#buttons\ show {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eff3f4;
+  border-top: 1px solid #eff3f4;
+}
+
+p {
+  padding-left: 67px;
+}
+
+#reply-form {
+  .actions, .field, .rounded-circle {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+  .field {
+    padding-top: 33px;
+    padding-left: unset;
+  }
+  #avatar{
+    float: left;
+    padding-top: 31px;
+    padding-left: 10px
+  }
+  .form-control {
+    margin-left: -42px;
+  }
+  .actions {
+    float: right;
+    margin-top: 33px;
+  }
+
+  border-bottom: 1px solid #eff3f4;
 }

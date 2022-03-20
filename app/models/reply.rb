@@ -4,7 +4,8 @@ class Reply < ApplicationRecord
   belongs_to :user
   belongs_to :replyable, polymorphic: true
   has_many :replies, as: :replyable, dependent: :destroy
-  has_many :retweets, as: :retweetable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
+  has_many :retweets, as: :source, dependent: :destroy, class_name: 'Tweet'
   validates :content, presence: true
+  validates :content, length: { maximum: 280 }
 end

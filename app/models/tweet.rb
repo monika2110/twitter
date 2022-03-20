@@ -4,10 +4,8 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_many :replies, as: :replyable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
-
   belongs_to :source, polymorphic: true, optional: true
   has_many :retweets, as: :source, dependent: :destroy, class_name: 'Tweet'
-
   validates :content, presence: true, if: :original_tweet?
   validates :content, length: { maximum: 280 }, if: :original_tweet?
 

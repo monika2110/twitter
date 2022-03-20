@@ -1,0 +1,15 @@
+<h1>New Retweet</h1>
+
+<%= form_with(model: Tweet) do |form| %>
+  <div class="field">
+    <%= form.text_area :content, placeholder: "What's happening?", class: "form-control"%>
+  </div>
+  <%= form.hidden_field :source_type, value: @type %>
+  <%= form.hidden_field :source_id, value: @source_id.id %>
+
+  <%= form.submit 'Retweet'%>
+
+  <% end %>
+
+
+<%= link_to 'Back', tweets_path %>

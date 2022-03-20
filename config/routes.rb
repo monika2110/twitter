@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
+
   resources :tweets do
     resources :replies
     resources :retweets
@@ -11,12 +12,6 @@ Rails.application.routes.draw do
     resources :replies
     resources :retweets
     resources :likes, only: [:create]
-
-  end
-  resources :retweets do
-    resources :retweets
-    resources :likes, only: [:create]
-
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -27,5 +22,4 @@ Rails.application.routes.draw do
   end
   resources :relations, only: [:destroy]
   resources :likes, only: [:destroy]
-
 end

@@ -21,3 +21,4 @@ Layout/EndOfLine:
   Exclude:
     - config/initializers/devise.rb
 
+

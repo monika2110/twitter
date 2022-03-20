@@ -1,21 +1,34 @@
-# frozen_string_literal: true
+# rubocop:disable all
 
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[show edit update destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create edit update destroy]
   # GET /tweets or /tweets.json
   def index
-    followee_id = Relation.select(:followee_id).where(follower_id: current_user.id)
-    @tweets = (Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).order('created_at DESC')
-    @tweet = Tweet.new
+    @tweets = Tweet.all.order('created_at DESC')
   end
 
   # GET /tweets/1 or /tweets/1.json
-  def show; end
+  def show
+    @reply = Reply.new
+    @replies = Reply.where(replyable_id: @tweet.id).order('created_at DESC')
+  end
 
   # GET /tweets/new
   def new
     @tweet = current_user.tweets.build
+    case params[:source_type]
+    when 'Tweet'
+      @source_id = Tweet.find(params[:source_id])
+      @type = params[:source_type]
+      render :new_retweet
+    when 'Reply'
+      @source_id = Reply.find(params[:source_id])
+      @type = params[:source_type]
+      render :new_retweet
+    else
+      render :new
+    end
   end
 
   # GET /tweets/1/edit
@@ -27,7 +40,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_back(fallback_location: root_path) }
+        format.html { redirect_back(fallback_location: tweet_url(@tweet)) }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +67,7 @@ class TweetsController < ApplicationController
     @tweet.destroy
 
     respond_to do |format|
-      format.html {  redirect_back(fallback_location: root_path)  }
+      format.html {  redirect_back(fallback_location: root_path) }
       format.json { head :no_content }
     end
   end

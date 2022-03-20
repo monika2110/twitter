@@ -8,14 +8,15 @@ class RepliesController < ApplicationController
   # GET /replies or /replies.json
   def index
     @replies = Reply.all
-    @reply = Reply.new
   end
 
   # GET /replies/1 or /replies/1.json
   def show; end
 
   # GET /replies/new
-  def new; end
+  def new
+    Reply.new
+  end
 
   # GET /replies/1/edit
   def edit; end
@@ -24,15 +25,7 @@ class RepliesController < ApplicationController
   def create
     @reply = @replyable.replies.new(reply_params)
     @reply.user = current_user
-    respond_to do |format|
-      if @reply.save
-        format.html { redirect_to @replyable, notice: 'Reply was successfully created.' }
-        format.json { render :show, status: :created, location: @reply }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @reply.errors, status: :unprocessable_entity }
-      end
-    end
+    create_respond
   end
 
   # PATCH/PUT /replies/1 or /replies/1.json
@@ -71,6 +64,18 @@ class RepliesController < ApplicationController
       @replyable = Reply.find_by_id(params[:reply_id])
     elsif params[:tweet_id]
       @replyable = Tweet.find_by_id(params[:tweet_id])
+    end
+  end
+
+  def create_respond
+    respond_to do |format|
+      if @reply.save
+        format.html { redirect_to @replyable, notice: 'Reply was successfully created.' }
+        format.json { render :show, status: :created, location: @reply }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @reply.errors, status: :unprocessable_entity }
+      end
     end
   end
 
