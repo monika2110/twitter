@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+  <div style="padding-bottom: 30px; border-top: 1px solid #eff3f4;">
+    <% @conversations.each do |conversation| %>
+      <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+        <% if conversation.sender_id == current_user.id %>
+          <% recipient = User.all.find(conversation.recipient_id) %>
+        <% else %>
+          <% recipient = User.all.find(conversation.sender_id) %>
+        <% end %>
+      <%=button_to conversation_messages_path(conversation),method: :get, class:'user-button' do%>
+        <div id='name'>
+          <%= user_avatar(recipient,'50px' ) %>
+          <span><span class= "link-dark name"><%=recipient.name%></span>
+          <small>@<%= recipient.username  %></small></span>
+          <% if conversation.messages.any? %>
+          <p><small><%=conversation.messages.last.content  %></small></p>
+            <% end %>
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+
+
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" style="margin:auto;display:block;">
+  <span style="font-size: large; alignment: center">New Message</span>
+</button>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="staticBackdropLabel" style="padding-right: 275px; font-weight: bold">New Message</h5>
+      </div>
+      <div class="modal-body">
+        <% @users.each do |user| %>
+          <%=button_to conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post, class:'user-button' do%>
+              <div id='name'>
+                  <%= user_avatar(user,'50px' ) %>
+                  <span class= "link-dark name"><%=user.name%></span>
+                    <p><small>@<%= user.username  %></small></p>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

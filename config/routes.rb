@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :retweets
     resources :likes, only: [:create]
   end
+
   resources :replies do
     resources :replies
     resources :retweets
@@ -20,6 +21,11 @@ Rails.application.routes.draw do
   resources :users do
     resources :relations, only: [:create]
   end
+
   resources :relations, only: [:destroy]
   resources :likes, only: [:destroy]
+
+  resources :conversations do
+    resources :messages
+  end
 end

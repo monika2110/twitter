@@ -8,11 +8,8 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-4">
-            <%if resource.avatar.attached? %>
-              <%= image_tag(resource.avatar.variant(resize: '100x100')) %>
-            <% else %>
-              <%= image_tag('default_profile.png' ,width: "50px",  class: "rounded-circle") %>
-            <% end %>
+           <%= user_avatar(resource) %>
+
           </div>
 
           <div class="col-sm-8">
@@ -23,6 +20,10 @@
 
       <div class="form-group">
         <%= f.text_field :name, autofocus: false, class: 'form-control', placeholder: "Full Name" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.text_field :username, autofocus: false, class: 'form-control', placeholder: "Username" %>
       </div>
 
       <div class="form-group">

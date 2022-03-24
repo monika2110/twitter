@@ -17,13 +17,8 @@ class TweetsController < ApplicationController
   # GET /tweets/new
   def new
     @tweet = current_user.tweets.build
-    case params[:source_type]
-    when 'Tweet'
+    if params[:source_type]
       @source_id = Tweet.find(params[:source_id])
-      @type = params[:source_type]
-      render :new_retweet
-    when 'Reply'
-      @source_id = Reply.find(params[:source_id])
       @type = params[:source_type]
       render :new_retweet
     else

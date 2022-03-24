@@ -2,7 +2,7 @@
     <% if @tweet.original_tweet? || ((@tweet.source_id.present?)&&(@tweet.content.present?))%>
       <div id='name'>
         <div>
-          <%= image_tag('default_profile.png' ,width: "50px",  class: "rounded-circle") %>
+          <%= user_avatar(@tweet.user,'50px' ) %>
           <%= link_to @tweet.user.name, user_path(@tweet.user_id), class: "link-dark name" %>
           <small>@<%= @tweet.user.username  %></small>
         </div>
@@ -141,7 +141,7 @@
       </div>
       <div id='name' >
         <div>
-          <%= image_tag('default_profile.png' ,width: "50px",  class: "rounded-circle") %>
+          <%= user_avatar(@tweet.source.user,'50px' ) %>
 
           <strong><%= link_to @tweet.source.user.name, user_path(@tweet.source.user_id), class: "link-dark name"%></strong>
           <small>&ensp;@<%= @tweet.source.user.username  %></small>
@@ -270,5 +270,8 @@
 <div id="reply-form">
   <%= render partial: 'replies/form' , locals: { reply: @reply, replyable: @tweet}%>
 </div>
-<%= render @tweet.replies.order('created_at DESC')%><br>
+<% if (@tweet.source_id.present?)&&(@tweet.content.nil?) %>
+    <%= render @tweet.source.replies.order('created_at DESC')%><br>
+<% end %>
+    <%= render @tweet.replies.order('created_at DESC')%><br>
 </body>

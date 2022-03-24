@@ -1,6 +1,5 @@
 @import 'bootstrap';
 
-
 .h-scroll {
   height: 100vh;
   position: fixed;
@@ -16,8 +15,13 @@
   border-right: 1px solid #eff3f4;
   border-left: 1px solid #eff3f4;
   .nav-home {
+    background-color: rgba(255, 255, 255, 0.98);
     width: 41.5%;
     z-index: 1;
+    .col-lg-5 {
+      border-right: unset;
+      border-left: unset;
+    }
   }
 }
 
@@ -89,34 +93,52 @@ button {
 }
 
 .tweet-div:hover {
+
   background-color: rgba(153, 153, 153, 0.05);
-  .reply_button, .like_button, .retweet_button {
+  .reply_button, .like_button, .retweet_button , .share_button{
     background-color: rgba(153, 153, 153, 0);
   }
   .like_button:hover {
     background-color: rgba(220, 20, 60, 0.24);
     .bi-heart {
-      fill: crimson;
+      color: crimson;
     }
   }
 
   .retweet_button:hover {
     background-color: rgba(99, 215, 125, 0.32);
     .bi-arrow-repeat {
-      fill: #3ba954;
+      color: #3ba954;
     }
   }
 
-  .reply_button:hover {
+  .reply_button:hover, .share_button:hover {
     background-color: rgba(18, 152, 232, 0.2);
     .bi-chat {
-      fill: #1298e8;
+      color: #1298e8;
+    }
+    .bi-box-arrow-up {
+      color: #1298e8;
     }
   }
+}
+.like_button {
+  vertical-align: middle;
+
+
 
 }
+.bi-heart, .bi-chat, .bi-arrow-repeat, .bi-pencil, .bi-bookmark-plus, .bi-box-arrow-up{
+  color: rgb(83, 100, 113);
+}
+
+.bi-heart-fill{
+  color: crimson
+}
+
 
 .tweet-div {
+
   border-top: 1px solid #eff3f4;
   margin-left: -12px;
   margin-right: -12px;
@@ -125,7 +147,21 @@ button {
     align-items: baseline;
     justify-content: center;
     padding-bottom: 10px;
+  }
 
+  .bi-envelope {
+    color: rgb(83, 100, 113);
+  }
+  #name {
+    padding: 12px 10px 10px 15px;
+    span, p {
+      vertical-align: top;
+    }
+    p {
+      margin-top: -25px;
+      margin-bottom: -12px;
+      padding-left: 67px;
+    }
   }
 }
 
@@ -154,7 +190,8 @@ li {
 
 #button {
   margin-top: 6pt;
-  padding-left: 14%;
+  padding-left: 12.5%;
+  padding-right: 2%;
   display: inline-block;
   z-index: -2;
 }
@@ -217,7 +254,7 @@ li {
 }
 
 #name {
-  padding: 10px 10px 10px;
+  padding: 12px 10px 10px 15px;
 }
 
 .name:hover {
@@ -251,14 +288,25 @@ li {
 }
 
 .retweet {
-  border-radius: 10px;
+  border-radius: 15px;
   border: 1px solid #dde1e3;
-  margin: 12px;
+  margin: 12px 12px 0 82px;
+  #name {
+    padding: 12px 0px 10px 0;
+    span, p {
+      vertical-align: top;
+    }
+    p {
+      padding-left: unset;
+      margin-left: unset;
+      margin-top: -25px;
+      margin-bottom: -12px;
+    }
+  }
+
+
 }
 
-p {
-  padding-left: 12px;
-}
 
 .name_retweet {
   padding-left: 22px;
@@ -292,31 +340,127 @@ p {
   border-top: 1px solid #eff3f4;
 }
 
-p {
-  padding-left: 67px;
-}
 
 #reply-form {
   .actions, .field, .rounded-circle {
     display: inline-block;
-    vertical-align: baseline;
+    vertical-align: middle;
+    margin-bottom: -33px;
   }
   .field {
-    padding-top: 33px;
+    padding-top: 36px;
     padding-left: unset;
   }
   #avatar{
     float: left;
-    padding-top: 31px;
-    padding-left: 10px
+    padding-top: 26px;
+    padding-left: 10px;
+
   }
   .form-control {
     margin-left: -42px;
+    border: none;
+
   }
   .actions {
     float: right;
-    margin-top: 33px;
+    margin-top: 23px;
+  }
+  border-bottom: 1px solid #eff3f4;
+}
+
+.index-form {
+  .field, .rounded-circle {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .field {
+    padding-left: unset;
+  }
+  #avatar{
+    float: left;
+    padding-left: 20px;
+
+  }
+  .form-control {
+  }
+}
+
+.avatar {
+  padding-left: 5px;
+}
+
+small {
+  color: rgb(83, 100, 113);
+
+}
+
+.user-button {
+  padding: unset;
+  margin: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 0;
+  border-bottom: 1px solid #eff3f4;
+  break-inside: auto;
+  #name {
+    padding: 12px 10px 10px 15px;
+
+    span, p {
+      vertical-align: top;
+    }
+
+    p {
+      margin-top: -25px;
+      margin-bottom: 0;
+      padding-left: 67px;
+    }
+  }
+}
+
+.user-button:hover {
+  background-color: rgba(153, 153, 153, 0.05);
   }
 
-  border-bottom: 1px solid #eff3f4;
+.msg-form {
+  position: fixed;
+  bottom: 0;
+  width: 50%;}
+
+.msg-content {
+  width: 80%;
+  margin-right: 5px;
+}
+
+.message-box {
+
+}
+.my-msg-box {
+  color: white;
+  width: fit-content;
+  max-width: 40%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #007bff !important;
+}
+
+
+.my-msg {
+  display: flex;
+  justify-content: flex-end
+
+}
+
+.other-msg-box {
+  background-color: rgba(153, 153, 153, 0.05);
+  width: fit-content;
+  max-width: 40%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end
 }

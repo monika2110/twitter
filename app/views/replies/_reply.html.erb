@@ -3,7 +3,7 @@
 <div onclick="location.href='/replies/<%=reply.id%>';" style="cursor: pointer;" class="tweet-div">
       <div id='name'>
         <div onclick="event.stopPropagation();">
-          <%= image_tag('default_profile.png' ,width: "50px",  class: "rounded-circle") %>
+          <%= user_avatar(reply.user,'50px' ) %>
           <%= link_to reply.user.name, user_path(reply.user_id), class: "link-dark name" %>
           <small>@<%= reply.user.username  %></small>
         </div>

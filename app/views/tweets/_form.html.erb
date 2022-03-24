@@ -11,10 +11,11 @@
         </ul>
       </div>
     <% end %>
-    <div class="field" style="  margin-left: 50px; margin-right: 30px;">
-      <%= form.text_area :content, placeholder: "What's happening?", class: "form-control tweet-field"%>
-    </div>
-
+    <div id="avatar">    </div>
+    <%= user_avatar(current_user,'50px' ) %>
+      <div class="field" style="  margin-left: 50px; margin-right: 30px;">
+        <%= form.text_area :content, placeholder: "What's happening?", class: "form-control tweet-field"%>
+      </div>
     <div class="actions" style="padding: 15px" >
       <%= form.submit "Tweet", class:"btn btn-secondary" %>
     </div>

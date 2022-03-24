@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def user_avatar(user, size = 40)
-    if user.avatar.attached?
-      user.avatar.variant(resize: "#{size}x#{size}!")
+  def user_avatar(user, size = '50px')
+    if user.present? && user.avatar.attached?
+      image_tag(user.avatar, width: size, height: size,  class: "rounded-circle")
     else
-      default_profile.png(user.email, size: size)
+      image_tag('default_profile.png', width: size, height: size, class: "rounded-circle")
     end
   end
 end
+
