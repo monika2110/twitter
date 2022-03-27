@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_083634) do
+ActiveRecord::Schema.define(version: 2022_03_24_073917) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 2022_03_23_083634) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "source_type"
+    t.integer "source_id"
+    t.boolean "read", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["source_type", "source_id"], name: "index_notifications_on_source"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "relations", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
@@ -84,6 +95,17 @@ ActiveRecord::Schema.define(version: 2022_03_23_083634) do
     t.integer "replyable_id"
     t.index ["replyable_type", "replyable_id"], name: "index_replies_on_replyable"
     t.index ["user_id"], name: "index_replies_on_user_id"
+  end
+
+  create_table "retweets", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.string "retweetable_type"
+    t.integer "retweetable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["retweetable_type", "retweetable_id"], name: "index_retweets_on_retweetable"
+    t.index ["user_id"], name: "index_retweets_on_user_id"
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -115,5 +137,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_083634) do
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "replies", "users"
+  add_foreign_key "retweets", "users"
 end

@@ -35,6 +35,9 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
+        if @tweet.source.present?
+        Notification.create!(user_id: current_user.id, source_id: @tweet.id, source_type: 'Tweet')
+        end
         format.html { redirect_back(fallback_location: tweet_url(@tweet)) }
         format.json { render :show, status: :created, location: @tweet }
       else

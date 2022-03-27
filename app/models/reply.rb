@@ -6,6 +6,7 @@ class Reply < ApplicationRecord
   has_many :replies, as: :replyable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :retweets, as: :source, dependent: :destroy, class_name: 'Tweet'
+  has_many :notifications, as: :source
   validates :content, presence: true
   validates :content, length: { maximum: 280 }
 end

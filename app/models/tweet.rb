@@ -6,6 +6,7 @@ class Tweet < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   belongs_to :source, polymorphic: true, optional: true
   has_many :retweets, as: :source, dependent: :destroy, class_name: 'Tweet'
+  has_many :notifications, as: :source
   validates :content, presence: true, if: :original_tweet?
   validates :content, length: { maximum: 280 }, if: :original_tweet?
 

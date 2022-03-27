@@ -1,9 +1,7 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_message, only: %i[ show edit update destroy ]
-  before_action do
-    @conversation = Conversation.find(params[:conversation_id])
-  end
+  before_action :find_conversation
   # GET /messages or /messages.json
   def index
     @messages = @conversation.messages
@@ -63,7 +61,9 @@ class MessagesController < ApplicationController
   end
 
   private
-
+  def find_conversation
+    @conversation = Conversation.find(params[:conversation_id])
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])

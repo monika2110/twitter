@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'Tweet', type: :system do
   before do
-    driven_by(:rack_test)
   end
   it 'it loads application index page with tweets' do
     visit new_user_registration_path
