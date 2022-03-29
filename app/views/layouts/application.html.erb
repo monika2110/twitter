@@ -19,19 +19,18 @@
         <div class="b-example-divider"></div>
         <div class="d-flex flex-column flex-shrink-0 p-1 bg-white" style="width: 355px;">
           <ul class="nav nav-pills flex-column mb-auto" style="align-content: center; ">
-            <li style="padding-left: 4px; padding-top: 10px; padding-bottom: 5px">
+            <li style="padding-left: 2px; padding-top: 10px; padding-bottom: 5px">
 
               <a href="<%=root_path %>" class="logo"  >
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#1DA1F2" class="bi bi-twitter" viewBox="0 0 16 16">
-                  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                </svg>
+                <i class="bi bi-twitter" style="color: #1DA1F2; font-size: 2rem; vertical-align: middle"></i>
+
               </a>
             </li>
 
             <li>
               <div class="nav-item">
                 <% if current_page?('/') %>
-                    <a href="/" class="nav-link link-dark " aria-current="page">
+                  <a href="/" class="nav-link link-dark " aria-current="page">
                       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-heart-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.707L8 2.207l6.646 6.646a.5.5 0 0 0 .708-.707L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
                         <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Zm0 5.189c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.691 0-5.018Z"/>
@@ -45,40 +44,57 @@
                     </svg>
                     &ensp;&ensp;<span id="nav_link">Home</span>
                   </a>
-
                 <% end %>
               </div>
             </li>
             <li>
               <div class="nav-item">
-                <a href="/notifications" class="nav-link link-dark">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-                  </svg>
-                  &ensp;&ensp;<span id="nav_link">Notifications</span>
-                </a>
+                <% if controller.controller_name == 'notifications' %>
+                  <a href="/notifications" class="nav-link link-dark">
+                        <i class="bi bi-bell-fill" style="font-size: 25px; vertical-align: middle"></i>
+                        &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Notifications</strong></span>
+                  </a>
+                <% else %>
+                  <a href="/notifications" class="nav-link link-dark">
+                    <i class="bi bi-bell" style="font-size: 25px; vertical-align: middle"></i>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Notifications</span>
+                  </a>
+                <% end %>
               </div>
             </li>
 
-            <li>
-              <div class="nav-item">
-                <a href="/conversations" class="nav-link link-dark">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                  </svg>
-                  &ensp;&ensp;<span id="nav_link">Messages</span>
-                </a>
-              </div>
-            </li>
 
             <li>
               <div class="nav-item">
-                <a href="#" class="nav-link link-dark">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                  </svg>
-                  &ensp;&ensp;<span id="nav_link">Bookmarks</span>
-                </a>
+                <% if controller.controller_name == 'conversations' %>
+                  <a href="/conversations" class="nav-link link-dark">
+                    <i class="bi bi-envelope-fill" style="font-size: 25px; vertical-align: middle"></i>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Messages</strong></span>
+                  </a>
+                <% else %>
+                  <a href="/conversations" class="nav-link link-dark">
+                    <i class="bi bi-envelope" style="font-size: 25px; vertical-align: middle"></i>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Messages</span>
+                  </a>
+                <% end %>
+              </div>
+            </li>
+
+
+
+            <li>
+              <div class="nav-item">
+                <% if controller.controller_name == 'bookmarks' %>
+                  <a href="/" class="nav-link link-dark">
+                    <i class="bi bi-bookmark-fill" style="font-size: 25px; vertical-align: middle"></i>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Bookmarks</strong></span>
+                  </a>
+                <% else %>
+                  <a href="/" class="nav-link link-dark">
+                    <i class="bi bi-bookmark" style="font-size: 25px; vertical-align: middle"></i>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Bookmarks</span>
+                  </a>
+                <% end %>
               </div>
             </li>
 
@@ -87,17 +103,13 @@
                 <% if user_signed_in? %>
                   <%if current_page?(user_path(current_user)) %>
                     <a href="/users/<%=current_user.id %>" class="nav-link link-dark">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                      </svg>
-                      &ensp;&ensp;<span id="nav_link"><strong>Profile</strong></span>
+                      <i class="bi bi-person-fill" style="font-size: 25px; vertical-align: middle"></i>
+                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Profile</strong></span>
                     </a>
                   <% else %>
                     <a href="/users/<%=current_user.id %>" class="nav-link link-dark">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                      </svg>
-                      &ensp;&ensp;<span id="nav_link">Profile</span>
+                      <i class="bi bi-person" style="font-size: 25px; vertical-align: middle"></i>
+                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Profile</span>
                     </a>
                   <%end %>
                 <%end %>

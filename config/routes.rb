@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :notifications
   devise_for :users
 
   resources :tweets do
     resources :replies
-    resources :retweets
     resources :likes, only: [:create]
   end
 
   resources :replies do
     resources :replies
-    resources :retweets
     resources :likes, only: [:create]
   end
 
@@ -29,4 +26,6 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
+
+  resources :notifications
 end

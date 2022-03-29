@@ -182,7 +182,7 @@ li {
 
 .logo{
   border-radius: 50%;
-  padding: 10px 10px 15px;
+  padding: 15px 15px 20px 15px;
 }
 .logo:hover {
   background-color: rgba(29, 161, 242, 0.09);
@@ -284,7 +284,7 @@ li {
 }
 
 .user {
-  padding-top: 260px;
+  padding-top: 220px;
 }
 
 .retweet {
@@ -463,4 +463,22 @@ small {
   padding: 10px;
   display: flex;
   justify-content: flex-end
+}
+
+#profile {
+  .rounded-circle {
+    border: 6px solid #ffffff;
+  }
+}
+
+
+.btn-profile {
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #dde1e3;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: small;
+  height: 38px;
+  float: right;
 }

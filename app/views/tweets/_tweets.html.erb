@@ -1,5 +1,4 @@
 <body>
-<div class="index-form"><%= render 'tweets/form', tweet: @tweet %></div>
 <% @tweets.each do |tweet| %>
   <div onclick="location.href='/tweets/<%=tweet.id%>';" style="cursor: pointer;" class="tweet-div">
     <% if tweet.original_tweet? || ((tweet.source_id.present?)&&(tweet.content.present?))%>
@@ -20,7 +19,7 @@
               <small>@<%= tweet.source.user.username  %></small></span>
             </span>
           </div>
-          <p><%= tweet.source.content %></p>
+          <p style="padding-left: 36px"><%= tweet.source.content %></p>
         </div>
       <% elsif tweet.source_type == 'Reply'%>
         <div class='retweet'>
@@ -31,7 +30,7 @@
               <small>@<%= tweet.source.user.username  %></small>
             </span>
           </div>
-          <p><%= tweet.source.content %></p>
+          <p style="padding-left: 36px"><%= tweet.source.content %></p>
         </div>
       <% end %>
       <div id='buttons'>
@@ -122,12 +121,15 @@
 
     <% else %>
       <% if (tweet.source_type == 'Reply')&& (tweet.content.nil?) %>
+        <span onclick="event.stopPropagation();" >
+          <%=link_to user_path(tweet.source.user_id) ,class: "link-dark name_retweet" do%>
+            <small style="padding-left: 30px">
+              <i class="bi bi-arrow-repeat" style="font-size: 15px; padding-right: 12px"></i>
+              <%=tweet.user.name %> Retweeted
+            </small>
+          <% end %>
+        </span>
         <div id='name' >
-          <div onclick="event.stopPropagation();" >
-            <%=link_to user_path(tweet.source.user_id) ,class: "link-dark name_retweet" do%>
-              <small><%=tweet.user.name %> Retweeted</small>
-            <% end %>
-          </div>
           <span onclick="event.stopPropagation();">
             <%= user_avatar(tweet.source.user,'50px' ) %>
             <span>
@@ -220,11 +222,14 @@
           </div>
         </div>
       <% else %>
-        <div onclick="event.stopPropagation();" >
+        <span onclick="event.stopPropagation();" >
           <%=link_to user_path(tweet.source.user_id) ,class: "link-dark name_retweet" do%>
-            <small><%=tweet.user.name %> Retweeted</small>
+            <small style="padding-left: 30px">
+              <i class="bi bi-arrow-repeat" style="font-size: 15px; padding-right: 12px;"></i>
+              <%=tweet.user.name %> Retweeted
+            </small>
           <% end %>
-        </div>
+        </span>
         <div id='name' >
           <span onclick="event.stopPropagation();">
             <%= user_avatar(tweet.source.user,'50px' ) %>

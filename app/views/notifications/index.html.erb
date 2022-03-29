@@ -1,18 +1,15 @@
 
     <% @notifications.each do |notification| %>
       <% user = User.all.find(notification.user_id) %>
-        <% if notification.source_type == 'Relation' %>
-          <% if notification.source.followee_id == current_user.id %>
+        <% if notification.source_type == 'Relation' && notification.source.present? && notification.source.followee_id == current_user.id %>
             <%=button_to user_path(user),method: :get, class:'user-button' do%>
               <div id='name'>
                 <span style="padding-left: 12px; padding-top: 12px; padding-bottom: 12px"><%= user_avatar(user,'35px' ) %></span><br>
                 <span class= "link-dark name"><%=user.name%></span> followed you
               </div>
               <% end %>
-          <% end %>
-        <% elsif notification.source_type == 'Reply' %>
-          <% if notification.source.user_id == current_user.id %>
-            <%=button_to reply_path(notification.source_id),method: :get, class:'user-button' do%>
+        <% elsif notification.source_type == 'Reply' && notification.source.user_id == current_user.id %>
+            <%=button_to reply_path(notification.source.replyable_id),method: :get, class:'user-button' do%>
                 <div id='name'>
                     <%= user_avatar(user,'50px' ) %>
                     <span><span class= "link-dark name"><%= user.name %></span>
@@ -21,27 +18,23 @@
                       <p><%=notification.source.content  %></p>
                   </div>
           <% end %>
-        <% end %>
-        <% elsif notification.source_type == 'Tweet' %>
-          <% if notification.source.source.user_id == current_user.id %>
-            <%=button_to tweet_path(notification.source_id),method: :get, class:'user-button' do%>
+        <% elsif notification.source_type == 'Tweet' &&  notification.source.source.user_id == current_user.id %>
+            <%=button_to tweet_path(notification.source.source_id),method: :get, class:'user-button' do%>
               <div id='name'>
                 <span style="padding-left: 12px; padding-top: 12px; padding-bottom: 12px"><%= user_avatar(user,'35px' ) %></span><br>
                 <span class= "link-dark name"><%=user.name%></span> Retweeted your Tweet <br>
                 <br><p style="color: #536471; padding-left: 12px"><%=notification.source.source.content  %></p>
               </div>
             <% end %>
-          <% end %>
-        <% elsif notification.source_type == 'Like' %>
-            <% if notification.source.likeable.user_id == current_user.id %>
-              <%=button_to tweet_path(notification.source_id),method: :get, class:'user-button' do%>
+        <% elsif notification.source_type == 'Like' && notification.source.likeable.user_id == current_user.id %>
+              <%=button_to tweet_path(notification.source.likeable_id),method: :get, class:'user-button' do%>
                 <div id='name'>
                   <span style="padding-left: 12px; padding-top: 12px; padding-bottom: 12px"><%= user_avatar(user,'35px' ) %></span><br>
                   <span class= "link-dark name"><%=user.name%></span> liked your Tweet <br>
                   <br><p style="color: #536471; padding-left: 12px"><%=notification.source.likeable.content  %></p>
                 </div>
               <% end %>
-            <% end %>
       <% end %>
-  <% end %>
+      <% notification.update(read: true)  %>
+    <% end %>
 <br>

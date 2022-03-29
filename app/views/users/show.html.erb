@@ -1,14 +1,16 @@
 <body>
-<% if user_signed_in? && current_user.id == @user.id %>
-<%= link_to "Edit account", edit_user_registration_path%> &ensp;
-  <%end %>
-<h1><%= @user.name %></h1>
-<h4>@<%= @user.username%></h4>
-<%= render 'follow_button' %>
+  <span id="profile"><%= user_avatar(@user,'140px')%></span>
+  <% if user_signed_in? && current_user.id == @user.id %>
+    <%= button_to "Set up profile", edit_user_registration_path, class: "btn btn-profile"%>
+  <% else %>
+    <%= render 'follow_button' %>
+  <% end %>
+  <h5><strong><%= @user.name %></strong></h5>
+  <p>@<%= @user.username  %></p>
 
-<p><%= @user.followees.count %> Following&emsp;<%= pluralize(@user.followers.count , "Follower") %> </p>
+  <p><%= @user.followees.count %> Following&emsp;<%= pluralize(@user.followers.count , "Follower") %> </p>
 
-<h3>Tweets</h3>
+  <strong>Tweets</strong>
+  <%= render partial: 'tweets/tweets' %>
 
-<hr>
-
+  </body>

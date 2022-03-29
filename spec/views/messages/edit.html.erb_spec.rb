@@ -1,21 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "messages/edit", type: :view do
+RSpec.describe 'messages/edit', type: :view do
   before(:each) do
     @message = assign(:message, Message.create!(
-      content: "MyText",
-      reserences: ""
-    ))
+                                  content: 'MyText',
+                                  reserences: ''
+                                ))
   end
 
-  it "renders the edit message form" do
+  it 'renders the edit message form' do
     render
 
-    assert_select "form[action=?][method=?]", message_path(@message), "post" do
+    assert_select 'form[action=?][method=?]', message_path(@message), 'post' do
+      assert_select 'textarea[name=?]', 'message[content]'
 
-      assert_select "textarea[name=?]", "message[content]"
-
-      assert_select "input[name=?]", "message[reserences]"
+      assert_select 'input[name=?]', 'message[reserences]'
     end
   end
 end
