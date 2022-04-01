@@ -7,7 +7,7 @@ class RelationsController < ApplicationController
     other_user = User.find(params[:user_id])
     @relation = Relation.new(follower_id: current_user.id, followee_id: other_user.id)
     @relation.save
-    Notification.create!(user_id: current_user.id, source_id: @relation.id, source_type: 'Relation')
+    Notification.create!(sender: current_user, receiver: other_user, source: @relation)
     redirect_back(fallback_location: root_path)
   end
 
