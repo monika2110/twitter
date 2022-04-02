@@ -18,7 +18,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
-  validates :avatar, allow_blank: true, format: {
-    with: /\.(gif|jpg|png)\z/i, message: 'must be a URL for GIF, JPG or PNG image.'
-  }
+
 end

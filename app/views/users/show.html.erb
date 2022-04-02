@@ -1,7 +1,7 @@
 <body>
   <span id="profile"><%= user_avatar(@user,'140px')%></span>
   <% if user_signed_in? && current_user.id == @user.id %>
-    <%= button_to "Set up profile", edit_user_registration_path, class: "btn btn-profile"%>
+    <%= button_to "Set up profile", edit_user_registration_path, method: :get, class: "btn btn-profile"%>
   <% else %>
     <%= render 'follow_button' %>
   <% end %>
