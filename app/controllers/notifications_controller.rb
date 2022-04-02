@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @notifications = Notification.where.not(user_id: current_user.id)
+    @notification = current_user.notifications
   end
 
   # GET /notifications/1 or /notifications/1.json

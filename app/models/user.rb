@@ -13,7 +13,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :messages
   has_many :conversations
-  has_many :notifications
+  has_many :notifications, foreign_key: :recipient_id, class_name: 'Notification'
+
   has_one_attached :avatar
 
   validates :name, presence: true
