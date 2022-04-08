@@ -1,6 +1,5 @@
  <% @messages.each do |message| %>
     <% if message.content %>
-      <% user = User.all.find(message.user_id) %>
       <% if message.user_id == current_user.id %>
       <div class="my-msg">
         <div class="my-msg-box" >
@@ -8,9 +7,10 @@
         </div>
       </div>
       <% else %>
-          <div class="other-msg-box" >
+       <span id="msg-avatar"><%= user_avatar(message.user,'40px' ) %></span>
+       <div class="other-msg-box" >
             <%= message.content %>
-          </div>
+          </div><br>
       <% end %>
     <% end %>
  <% end %>

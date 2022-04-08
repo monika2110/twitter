@@ -445,6 +445,8 @@ small {
   margin-bottom: 10px;
   padding: 10px;
   background-color: #007bff !important;
+
+
 }
 
 
@@ -481,4 +483,52 @@ small {
   font-size: small;
   height: 38px;
   float: right;
+}
+
+#msg-avatar, .other-msg-box {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.group {
+  border: 1px solid #dde1e3;
+}
+
+.blue {
+  color: #1DA1F2;
+}
+
+#content {
+  color: #536471;
+  padding-left: 12px
+}
+
+#notif-avater {
+  padding-left: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px
+}
+
+.new-message {
+  padding-right: 275px;
+  font-weight: bold
+}
+
+.conversations {
+  padding-bottom: 30px;
+  border-top: 1px solid #eff3f4;
+}
+
+#modal-button {
+  margin:auto;
+  display:block;
+  span {
+    font-size: large;
+    alignment: center;
+  }
+}
+
+.bi-check-lg {
+
+  width: 66px;
 }

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :conversation_users
   devise_for :users
 
   resources :tweets do

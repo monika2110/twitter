@@ -12,12 +12,11 @@ class User < ApplicationRecord
   has_many :retweets, as: :source, dependent: :destroy, class_name: 'Tweet'
   has_many :likes
   has_many :messages
-  has_many :conversations
+  has_many :conversation_users
   has_many :notifications, foreign_key: :recipient_id, class_name: 'Notification'
 
   has_one_attached :avatar
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
-
 end

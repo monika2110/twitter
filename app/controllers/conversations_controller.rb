@@ -6,30 +6,33 @@ class ConversationsController < ApplicationController
 
   # GET /conversations or /conversations.json
   def index
-    @conversations = (Conversation.where(recipient_id: current_user.id)
-      .or(Conversation.where(sender_id: current_user.id))).order('created_at DESC')
+    invalid_conversation = Conversation.where(private: false).and(Conversation.where(topic: nil))
+    if invalid_conversation.present?
+      invalid_conversation.destroy_all
+    end
+    @conversations = Conversation.all.order('created_at DESC')
     @users = User.where.not(id: current_user)
   end
 
   # GET /conversations/1 or /conversations/1.json
-  def show; end
+  def show
+    @conversations = Conversation.all
+    @users = User.where.not(id: current_user)
+  end
 
   # GET /conversations/new
   def new
-    @conversation = Conversation.new
+    @conversation = Conversation.new(conversation_params)
   end
 
   # POST /conversations or /conversations.json
   def create
-    @conversation = if Conversation.between(params[:sender_id], params[:recipient_id]).present?
-                      Conversation.between(params[:sender_id], params[:recipient_id]).first
-                    else
-                      Conversation.new(conversation_params)
-                    end
+    @conversation = Conversation.new(conversation_params)
     respond_to do |format|
       if @conversation.save
+        ConversationUser.create(user: current_user, conversation: @conversation) unless @conversation.private
         format.html do
-          redirect_to conversation_messages_path(@conversation), notice: 'Conversation was successfully created.'
+          redirect_to conversation_path(@conversation), notice: 'Conversation was successfully created.'
         end
         format.json { render :show, status: :created, location: @conversation }
       else
@@ -38,6 +41,21 @@ class ConversationsController < ApplicationController
       end
     end
   end
+
+  def update
+    respond_to do |format|
+      if @conversation.update(conversation_params)
+        format.html do
+           redirect_to(conversation_messages_path(@conversation))
+        end
+        format.json { render :show, status: :ok, location: @conversation_user }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @conversation_user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # DELETE /conversations/1 or /conversations/1.json
   def destroy
@@ -58,6 +76,6 @@ class ConversationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def conversation_params
-    params.permit(:sender_id, :recipient_id)
+    params.permit(:topic, :private)
   end
 end
