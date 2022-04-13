@@ -7,9 +7,7 @@ class ConversationsController < ApplicationController
   # GET /conversations or /conversations.json
   def index
     invalid_conversation = Conversation.where(private: false).and(Conversation.where(topic: nil))
-    if invalid_conversation.present?
-      invalid_conversation.destroy_all
-    end
+    invalid_conversation.destroy_all if invalid_conversation.present?
     @conversations = Conversation.all.order('created_at DESC')
     @users = User.where.not(id: current_user)
   end
@@ -46,7 +44,7 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       if @conversation.update(conversation_params)
         format.html do
-           redirect_to(conversation_messages_path(@conversation))
+          redirect_to(conversation_messages_path(@conversation))
         end
         format.json { render :show, status: :ok, location: @conversation_user }
       else
@@ -55,7 +53,6 @@ class ConversationsController < ApplicationController
       end
     end
   end
-
 
   # DELETE /conversations/1 or /conversations/1.json
   def destroy

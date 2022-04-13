@@ -70,7 +70,7 @@ class RepliesController < ApplicationController
   def create_respond
     respond_to do |format|
       if @reply.save
-        Notification.create!(user_id: current_user.id, source_id: @reply.id, source_type: 'Reply')
+        Notification.create!(sender: current_user, recipient: @reply.replyable.user, source: @reply)
         format.html { redirect_to @replyable, notice: 'Reply was successfully created.' }
         format.json { render :show, status: :created, location: @reply }
       else

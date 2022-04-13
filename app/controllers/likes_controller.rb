@@ -42,7 +42,7 @@ class LikesController < ApplicationController
   def create_respond
     respond_to do |format|
       if @like.save
-        Notification.create!(user_id: current_user.id, source_id: @like.id, source_type: 'Like')
+        Notification.create!(sender: current_user, recipient: @like.likeable.user, source: @like)
         format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @like }
       else

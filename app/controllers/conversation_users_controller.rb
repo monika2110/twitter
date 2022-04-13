@@ -26,23 +26,23 @@ class ConversationUsersController < ApplicationController
     user1 = ConversationUser.where(user_id: @conversation_user.user_id)
     user2 = ConversationUser.where(user_id: current_user.id)
     conversation = Conversation.where(conversation_users: user1).and(Conversation.where(conversation_users: user2)).and(Conversation.where(private: true))
-      if (!params[:conversation_id]) and conversation.present?
-        redirect_to(conversation_messages_path(conversation.last))
-      else
-        unless params[:conversation_id]
-          @current_user_conversation_user.save
-          @conversation.save
-          @conversation_user.conversation = @conversation
-        end
+    if !params[:conversation_id] && conversation.present?
+      redirect_to(conversation_messages_path(conversation.last))
+    else
+      unless params[:conversation_id]
+        @current_user_conversation_user.save
+        @conversation.save
+        @conversation_user.conversation = @conversation
+      end
 
       respond_to do |format|
         if @conversation_user.save
           if @conversation.present?
-          format.html { redirect_to(conversation_messages_path(@conversation))}
+            format.html { redirect_to(conversation_messages_path(@conversation)) }
           else
-            format.html { redirect_back(fallback_location: root_path)}
-            end
-            format.json { render :show, status: :created, location: @conversation_user }
+            format.html { redirect_back(fallback_location: root_path) }
+          end
+          format.json { render :show, status: :created, location: @conversation_user }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @conversation_user.errors, status: :unprocessable_entity }
@@ -80,8 +80,8 @@ class ConversationUsersController < ApplicationController
 
   def set_conversation
     unless params[:conversation_id]
-        @conversation = Conversation.new
-        @current_user_conversation_user = ConversationUser.new(user: current_user, conversation: @conversation)
+      @conversation = Conversation.new
+      @current_user_conversation_user = ConversationUser.new(user: current_user, conversation: @conversation)
     end
   end
 
@@ -95,5 +95,3 @@ class ConversationUsersController < ApplicationController
     params.permit(:user_id, :conversation_id)
   end
 end
-
-

@@ -5,19 +5,13 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @notification = current_user.notifications
+    @notifications = current_user.notifications.where.not(sender: current_user)
   end
-
-  # GET /notifications/1 or /notifications/1.json
-  def show; end
 
   # GET /notifications/new
   def new
     @notification = Notification.new
   end
-
-  # GET /notifications/1/edit
-  def edit; end
 
   # POST /notifications or /notifications.json
   def create
@@ -29,19 +23,6 @@ class NotificationsController < ApplicationController
         format.json { render :show, status: :created, location: @notification }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /notifications/1 or /notifications/1.json
-  def update
-    respond_to do |format|
-      if @notification.update(notification_params)
-        format.html { redirect_to notification_url(@notification), notice: 'Notification was successfully updated.' }
-        format.json { render :show, status: :ok, location: @notification }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
