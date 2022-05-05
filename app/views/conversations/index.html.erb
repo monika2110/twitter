@@ -43,7 +43,7 @@
         <h5 class="modal-title new-message" id="staticBackdropLabel"><%= t('.new_message') %></h5>
       </div>
       <div class="modal-body">
-        <%=button_to conversations_path(locale: I18n.locale) ,params: {:private => false }, method: :post, class:'user-button' do%>
+        <%= button_to new_group_conversations_path(locale: I18n.locale) ,params: {:private => false }, method: :get, class:'user-button' do%>
           <div id='name'>
             <%= image_tag('group.png', width: '50px', height: '50px', class: 'rounded-circle group') %>
             <span class= "name blue"><%= t('.create_a_group') %></span>
@@ -51,7 +51,7 @@
         <% end %>
 
         <% @users.each do |user| %>
-          <%=button_to conversation_users_path, params: {user_id: user.id}, method: :post, class:'user-button' do%>
+          <%=button_to conversations_path, params: {user_ids: [user.id]}, method: :post, class: 'user-button' do%>
               <div id='name'>
                   <%= user_avatar(user,'50px' ) %>
                   <span class= "link-dark name"><%=user.name%></span>

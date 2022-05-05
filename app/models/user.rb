@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :messages
   has_many :conversation_users
+  has_many :conversations, through: :conversation_users
+
   has_many :notifications, foreign_key: :recipient_id, class_name: 'Notification'
   has_many :bookmarks
 

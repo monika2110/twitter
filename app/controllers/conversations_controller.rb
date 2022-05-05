@@ -12,6 +12,10 @@ class ConversationsController < ApplicationController
     @users = User.where.not(id: current_user)
   end
 
+  def new_group
+    @users = User.where.not(id: current_user)
+  end
+
   # GET /conversations/1 or /conversations/1.json
   def show
     @conversations = Conversation.all
@@ -26,11 +30,20 @@ class ConversationsController < ApplicationController
   # POST /conversations or /conversations.json
   def create
     @conversation = Conversation.new(conversation_params)
+
     respond_to do |format|
-      if @conversation.save
-        ConversationUser.create(user: current_user, conversation: @conversation) unless @conversation.private
+      if @conversation.valid?
+        if @conversation.private
+          conversation = Conversation.find_direct(current_user, User.find(params[:user_ids].first))
+
+          return redirect_to(conversation_messages_path(conversation)) if conversation.present?
+        end
+
+        ConversationUser.create!(conversation: @conversation, user: current_user)
+        @conversation.save
+
         format.html do
-          redirect_to conversation_path(@conversation,  locale: I18n.locale), notice: 'Conversation was successfully created.'
+          redirect_to conversation_messages_path(@conversation, locale: I18n.locale), notice: 'Conversation was successfully created.'
         end
         format.json { render :show, status: :created, location: @conversation }
       else
@@ -73,6 +86,10 @@ class ConversationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def conversation_params
-    params.permit(:topic, :private)
+    if params[:conversation]
+      params.require(:conversation).permit(:topic, :private, user_ids: [])
+    else
+      params.permit(:topic, :private, user_ids: [])
+    end
   end
 end
