@@ -44,6 +44,7 @@ class LikesController < ApplicationController
       if @like.save
         Notification.create!(sender: current_user, recipient: @like.likeable.user, source: @like)
         format.html { redirect_back(fallback_location: root_path) }
+        format.js
         format.json { render :show, status: :created, location: @like }
       else
         format.html { render :new, status: :unprocessable_entity }

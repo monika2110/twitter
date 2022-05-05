@@ -59,3 +59,4 @@ gem 'devise', '~> 4.8'
 gem 'rubocop', require: false
 
 gem 'bootstrap', '~> 5.0.2'
+gem 'i18n-js'

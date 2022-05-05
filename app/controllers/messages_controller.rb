@@ -21,6 +21,8 @@ class MessagesController < ApplicationController
     @message.user = current_user
     respond_to do |format|
       if @message.save
+        #ActionCable.server.broadcast 'conversation_channel', { msg: render_to_string('messages/_message', layout: false) }
+
         format.html { redirect_to conversation_messages_path(@conversation) }
         format.json { render :show, status: :created, location: @message }
       else

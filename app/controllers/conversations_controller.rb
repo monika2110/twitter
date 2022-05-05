@@ -30,7 +30,7 @@ class ConversationsController < ApplicationController
       if @conversation.save
         ConversationUser.create(user: current_user, conversation: @conversation) unless @conversation.private
         format.html do
-          redirect_to conversation_path(@conversation), notice: 'Conversation was successfully created.'
+          redirect_to conversation_path(@conversation,  locale: I18n.locale), notice: 'Conversation was successfully created.'
         end
         format.json { render :show, status: :created, location: @conversation }
       else

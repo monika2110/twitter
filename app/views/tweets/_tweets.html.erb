@@ -50,7 +50,7 @@
                 <i class="bi bi-heart-fill"></i>
               <% end %>
             <% else %>
-              <%= button_to tweet_likes_path(tweet)  , class:'like_button' do %>
+              <%= button_to tweet_likes_path(tweet)  , class:'like_button' ,remote: true  do %>
                 <i class="bi bi-heart"></i>
               <% end %>
             <% end %>
@@ -110,9 +110,16 @@
                 </button>
               </li>
               <li id="dropdown-button">
-                <button class="dropdown-item" type="button">
-                  <i class="bi-bookmark-plus"></i>&ensp;Bookmark
-                </button>
+                <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                <% if bookmark.present? %>
+                  <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
+                    <i class="bi-bookmark-fill"></i>&ensp;Bookmark
+                  <% end %>
+                <% else %>
+                  <%= button_to tweet_bookmarks_path(tweet)  , class: "dropdown-item", type: "button" do %>
+                    <i class="bi-bookmark-plus"></i>&ensp;Bookmark
+                  <% end %>
+                <% end %>
               </li>
             </ul>
           </div>
@@ -155,7 +162,7 @@
                   <i class="bi bi-heart-fill"></i>
                 <% end %>
               <% else %>
-                <%= button_to reply_likes_path(tweet.source)  , class:'like_button' do %>
+                <%= button_to reply_likes_path(tweet.source)  , class:'like_button', remote: true  do %>
                   <i class="bi bi-heart"></i>
                 <% end %>
               <% end %>
@@ -213,9 +220,16 @@
                   </button>
                 </li>
                 <li id="dropdown-button">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-bookmark-plus"></i>&ensp;Bookmark
-                  </button>
+                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                  <% if bookmark.present? %>
+                    <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
+                      <i class="bi-bookmark-fill"></i>&ensp;Bookmark
+                    <% end %>
+                  <% else %>
+                    <%= button_to reply_bookmarks_path(tweet.source)  , class: "dropdown-item", type: "button" do %>
+                      <i class="bi-bookmark-plus"></i>&ensp;Bookmark
+                    <% end %>
+                  <% end %>
                 </li>
               </ul>
             </div>
@@ -257,7 +271,7 @@
                   <i class="bi bi-heart-fill"></i>
                 <% end %>
               <% else %>
-                <%= button_to tweet_likes_path(tweet.source)  , class:'like_button' do %>
+                <%= button_to tweet_likes_path(tweet.source)  , class:'like_button', remote: true  do %>
                   <i class="bi bi-heart"></i>
                 <% end %>
               <% end %>
@@ -317,9 +331,16 @@
                   </button>
                 </li>
                 <li id="dropdown-button">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-bookmark-plus"></i>&ensp;Bookmark
-                  </button>
+                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                  <% if bookmark.present? %>
+                    <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
+                      <i class="bi-bookmark-fill"></i>&ensp;Bookmark
+                    <% end %>
+                  <% else %>
+                    <%= button_to tweet_bookmarks_path(tweet.source) , class: "dropdown-item", type: "button" do %>
+                      <i class="bi-bookmark-plus"></i>&ensp;Bookmark
+                    <% end %>
+                  <% end %>
                 </li>
               </ul>
             </div>

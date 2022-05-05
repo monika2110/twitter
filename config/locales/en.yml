@@ -30,4 +30,20 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  layouts:
+    application:
+      home: "Home"
+      notifications: "Notifications"
+      messages: "Messages"
+      bookmarks: "Bookmarks"
+      profile: "Profile"
+      tweet: "Tweet"
+
+  conversations:
+    index:
+      new_message: "New Message"
+      notifications: "Notifications"
+      create_a_group: "Create a group"
+
+
+
