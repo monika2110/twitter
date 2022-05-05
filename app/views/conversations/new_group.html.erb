@@ -1,0 +1,7 @@
+<%= form_with(model: Conversation) do |f| %>
+  <%= f.text_field :topic %>
+  <%= f.hidden_field :private, value: false %>
+  <%= f.collection_select :user_ids, @users, :id, :name, {}, { multiple: true } %>
+
+  <%= f.button 'submit', class: 'btn btn-block btn-primary' %>
+<% end %>
