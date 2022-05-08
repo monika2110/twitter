@@ -1,7 +1,11 @@
 <%= form_with(model: Conversation) do |f| %>
   <%= f.text_field :topic %>
   <%= f.hidden_field :private, value: false %>
-  <%= f.collection_select :user_ids, @users, :id, :name, {}, { multiple: true } %>
+
+  <%= collection_check_boxes(:conversation, :user_ids, @users, :id, :name) do |b| %>
+   <div> <%= b.check_box class:"form-check-input me-1" %>
+    <%= b.label  %></div>
+  <%end %>
 
   <%= f.button 'submit', class: 'btn btn-block btn-primary' %>
 <% end %>

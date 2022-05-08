@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :bookmarks
   devise_for :users
   resources :conversation_users
   resources :tweets do
@@ -26,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :relations, only: [:destroy]
   resources :likes, only: [:destroy]
-  resources :bookmarks, only: [:destroy]
+  resources :bookmarks, only: %i[destroy index]
 
   resources :conversations do
     resources :messages

@@ -110,7 +110,7 @@
                 </button>
               </li>
               <li id="dropdown-button">
-                <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                <% bookmark = tweet.bookmarks.find_by(user_id: current_user.id) %>
                 <% if bookmark.present? %>
                   <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
                     <i class="bi-bookmark-fill"></i>&ensp;Bookmark
@@ -220,13 +220,13 @@
                   </button>
                 </li>
                 <li id="dropdown-button">
-                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user.id) %>
                   <% if bookmark.present? %>
                     <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
                       <i class="bi-bookmark-fill"></i>&ensp;Bookmark
                     <% end %>
                   <% else %>
-                    <%= button_to reply_bookmarks_path(tweet.source)  , class: "dropdown-item", type: "button" do %>
+                    <%= button_to reply_bookmarks_path(tweet.bookmarkable)  , class: "dropdown-item", type: "button" do %>
                       <i class="bi-bookmark-plus"></i>&ensp;Bookmark
                     <% end %>
                   <% end %>
@@ -331,13 +331,13 @@
                   </button>
                 </li>
                 <li id="dropdown-button">
-                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user) %>
+                  <% bookmark = tweet.bookmarks.find_by(user_id: current_user.id) %>
                   <% if bookmark.present? %>
                     <%= button_to bookmark_path(bookmark), method: :delete, class: "dropdown-item", type: "button" do %>
                       <i class="bi-bookmark-fill"></i>&ensp;Bookmark
                     <% end %>
                   <% else %>
-                    <%= button_to tweet_bookmarks_path(tweet.source) , class: "dropdown-item", type: "button" do %>
+                    <%= button_to tweet_bookmarks_path(tweet.bookmarkable) , class: "dropdown-item", type: "button" do %>
                       <i class="bi-bookmark-plus"></i>&ensp;Bookmark
                     <% end %>
                   <% end %>

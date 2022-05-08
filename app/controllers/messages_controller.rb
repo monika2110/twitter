@@ -21,9 +21,8 @@ class MessagesController < ApplicationController
     @message.user = current_user
     respond_to do |format|
       if @message.save
-        #ActionCable.server.broadcast 'conversation_channel', { msg: render_to_string('messages/_message', layout: false) }
-
-        format.html { redirect_to conversation_messages_path(@conversation) }
+        ActionCable.server.broadcast('conversation_channel', { msg: @message.content })
+      elsif format.html { redirect_to conversation_messages_path(@conversation) }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -69,5 +68,9 @@ class MessagesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def message_params
     params.require(:message).permit(:content, :user_id)
+  end
+
+  def render_message(message)
+    render(partial: 'message', locals: { message: message })
   end
 end
