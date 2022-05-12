@@ -134,7 +134,7 @@ RSpec.describe '/replies', type: :request do
       reply = Reply.new(valid_attributes)
       reply.save
       expect do
-        delete tweet_reply_path(reply.replyable, reply)
+        delete reply_path(reply)
       end.to change(Reply, :count).by(-1)
       expect(response).to redirect_to(root_path)
     end

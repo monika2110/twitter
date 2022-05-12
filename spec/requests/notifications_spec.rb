@@ -18,48 +18,51 @@ RSpec.describe '/notifications', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Notification. As you add validations to Notification, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
-  end
-
+  current_user = User.first_or_create!(name: 'user', username: 'user', email: 'user@example.com', password: 'password',
+                                       password_confirmation: 'password')
+  other_user = User.first_or_create!(name: 'user2', username: 'user2', email: 'user2@example.com', password: 'password',
+                                     password_confirmation: 'password')
+  tweet = Tweet.first_or_create!(content: 'content', user: current_user)
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      'id' => 'a',
+
+    }
   end
+  let(:valid_attributes) do
+    {
+      'sender_id' => current_user.id,
+      'recipient_id' => other_user.id,
+      'source_id' => tweet.id,
+      'read' => false
+
+    }
+    end
 
   describe 'GET /index' do
     it 'renders a successful response' do
+      sign_in(current_user)
       Notification.create! valid_attributes
-      get notifications_url
+      get notifications_path
       expect(response).to be_successful
     end
   end
 
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      notification = Notification.create! valid_attributes
-      get notification_url(notification)
-      expect(response).to be_successful
-    end
-  end
 
   describe 'GET /new' do
     it 'renders a successful response' do
+      sign_in(current_user)
       get new_notification_url
       expect(response).to be_successful
     end
   end
 
-  describe 'GET /edit' do
-    it 'renders a successful response' do
-      notification = Notification.create! valid_attributes
-      get edit_notification_url(notification)
-      expect(response).to be_successful
-    end
-  end
+
 
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new Notification' do
+        sign_in(current_user)
         expect do
           post notifications_url, params: { notification: valid_attributes }
         end.to change(Notification, :count).by(1)
@@ -85,35 +88,6 @@ RSpec.describe '/notifications', type: :request do
     end
   end
 
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested notification' do
-        notification = Notification.create! valid_attributes
-        patch notification_url(notification), params: { notification: new_attributes }
-        notification.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the notification' do
-        notification = Notification.create! valid_attributes
-        patch notification_url(notification), params: { notification: new_attributes }
-        notification.reload
-        expect(response).to redirect_to(notification_url(notification))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        notification = Notification.create! valid_attributes
-        patch notification_url(notification), params: { notification: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
 
   describe 'DELETE /destroy' do
     it 'destroys the requested notification' do
