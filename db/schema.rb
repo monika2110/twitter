@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# rubocop:disable all
 
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -120,6 +120,17 @@ ActiveRecord::Schema.define(version: 20_220_530_064_811) do
     t.index ['user_id'], name: 'index_replies_on_user_id'
   end
 
+  create_table 'retweets', force: :cascade do |t|
+    t.text 'content'
+    t.integer 'user_id', null: false
+    t.string 'retweetable_type'
+    t.integer 'retweetable_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[retweetable_type retweetable_id], name: 'index_retweets_on_retweetable'
+    t.index ['user_id'], name: 'index_retweets_on_user_id'
+  end
+
   create_table 'tweets', force: :cascade do |t|
     t.text 'content'
     t.datetime 'created_at', precision: 6, null: false
@@ -155,4 +166,5 @@ ActiveRecord::Schema.define(version: 20_220_530_064_811) do
   add_foreign_key 'notifications', 'users', column: 'recipient_id'
   add_foreign_key 'notifications', 'users', column: 'sender_id'
   add_foreign_key 'replies', 'users'
+  add_foreign_key 'retweets', 'users'
 end

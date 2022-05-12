@@ -1,17 +1,16 @@
-# frozen_string_literal: true
+# rubocop:disable all
 
 Rails.application.routes.draw do
   devise_for :users
   resources :conversation_users
   resources :tweets do
-    resources :replies
+    resources :replies, except: [:destroy]
     resources :likes, only: [:create]
     resources :bookmarks, only: [:create]
-
   end
 
   resources :replies do
-    resources :replies
+    resources :replies, except: [:destroy]
     resources :likes, only: [:create]
     resources :bookmarks, only: [:create]
   end
@@ -26,6 +25,7 @@ Rails.application.routes.draw do
   resources :relations, only: [:destroy]
   resources :likes, only: [:destroy]
   resources :bookmarks, only: %i[destroy index]
+  resources :replies, only: %i[destroy]
 
   resources :conversations do
     resources :messages
@@ -35,5 +35,4 @@ Rails.application.routes.draw do
   end
 
   resources :notifications
-
 end
