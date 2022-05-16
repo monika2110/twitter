@@ -4,6 +4,7 @@ class RepliesController < ApplicationController
   before_action :set_reply, only: %i[edit update destroy show]
   before_action :set_replyable
   before_action :authenticate_user!
+  before_action :set_users
 
   # GET /replies or /replies.json
   def index
@@ -47,7 +48,7 @@ class RepliesController < ApplicationController
     @reply.destroy
 
     respond_to do |format|
-      format.html { redirect_to @replyable }
+      format.html { redirect_back(fallback_location: root_path) }
       format.json { head :no_content }
     end
   end

@@ -532,3 +532,133 @@ small {
 
   width: 66px;
 }
+
+
+.image-upload {
+  padding-left: 110px;
+}
+
+.bi-image {
+  color: #1DA1F2;
+}
+
+#chat-text, .create-message {
+  display: inline;
+}
+
+.message-new {
+  padding-bottom: 20px;
+  background: white;
+}
+
+#msg-div {
+  padding-bottom: 60px;
+}
+
+
+.form-check-input {
+}
+.users-label{
+  border-bottom: 1px solid #eff3f4;
+  width: 100%;
+  padding: unset;
+  margin: unset;
+
+}
+#group-users {
+  align-content: center;
+  vertical-align: middle;
+  padding: 10px;
+
+    span, p {
+      vertical-align: top;
+
+    }
+    p {
+      margin-top: -25px;
+      margin-bottom: -12px;
+      padding-left: 67px;
+    }
+  span {
+    display: inline;
+  }
+  #check-box {
+    float: right;
+    margin-bottom: 20px;
+    margin-top: -20px;
+  }
+  .name:hover {
+    text-decoration: none;
+  }
+}
+
+.users-label:hover {
+  background-color: rgba(153, 153, 153, 0.05);
+
+}
+
+
+#create-group {
+  .btn-dark {
+    border-radius: 25px;
+  }
+  float: right;
+}
+
+#topic {
+  padding-top: 20px;
+
+  .form-control {
+    width: 60%;
+  }
+  .btn-dark {
+    border-radius: 25px;
+    float: right  }
+
+  .form-control, .btn-dark {
+    display: inline-block;
+  }
+}
+
+
+.who_to_follow {
+  h5 {
+    font-weight: bold;
+    padding-bottom: 20px;
+  }
+  padding: 20px;
+  margin-top: 70px;
+  width: 80%;
+  background-color: rgba(153, 153, 153, 0.05);
+  border-radius: 20px;
+}
+
+#follow-users {
+  align-content: center;
+  vertical-align: middle;
+  padding-bottom: 40px;
+
+
+  span, p {
+    vertical-align: top;
+
+  }
+  p {
+    margin-top: -25px;
+    margin-bottom: -12px;
+    padding-left: 67px;
+  }
+  span {
+    display: inline;
+  }
+  #check-box {
+    float: right;
+    margin-bottom: 20px;
+    margin-top: -20px;
+  }
+}
+
+.follow-users:hover {
+  background-color: rgba(153, 153, 153, 0.13);
+
+}

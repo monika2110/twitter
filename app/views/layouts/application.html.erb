@@ -10,6 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
@@ -28,7 +29,7 @@
             </li>
 
             <li>
-              <div class="nav-item">
+              <div class="nav-item" id="nav-item">
                 <% if current_page?('/') %>
                   <a href="/" class="nav-link link-dark " aria-current="page">
                       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-heart-fill" viewBox="0 0 16 16">
@@ -171,14 +172,17 @@
           </main>
       </div>
 
-      <div class="col-lg-4 col-md-0% col-sm-0%">
-        <nav class="navbar position-fixed navbar-expand-lg navbar-light bg-white"  style="width: 33.3%; z-index: 0 ">
-          <div class="container-fluid">
-            <form class="d-flex search" style="width: 80%; height: 45px" >
+      <div class="col-lg-4 col-md-0 col-sm-0" >
+        <nav class="navbar position-fixed navbar-expand-lg navbar-light bg-white"  style="width: 33.3%; z-index: 0">
+          <div class="container-fluid d-sm-block">
+            <form class="d-flex search d-sm-block" style="width: 70%; height: 45px; overflow: hidden" >
               <input class="form-control me-2" type="search" placeholder=" Search Twitter" aria-label="Search" >
             </form>
           </div>
         </nav>
+        <div class="who_to_follow">
+        <%= render partial: 'users/who_to_follow' %>
+        </div>
       </div>
     </div>
   </div>
@@ -199,3 +203,5 @@
 
 </html>
 
+
+<div id="modal-holder"></div>

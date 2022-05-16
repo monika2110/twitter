@@ -1,6 +1,7 @@
  import consumer from "./consumer"
 
-consumer.subscriptions.create("ConverationChannel", {
+
+consumer.subscriptions.create("ConversationChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -10,9 +11,7 @@ consumer.subscriptions.create("ConverationChannel", {
   },
 
   received(data) {
-  const storeElement = document.querySelector(div.msgs)
-    if (storeElement) {
-      storeElement.innerHTML = msg.html
-    }
+
+    $('#msg-div').append(data.msg)
     }
 });

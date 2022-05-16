@@ -2,6 +2,7 @@
 
 class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[show edit update destroy]
+  before_action :set_users
 
   # GET /notifications or /notifications.json
   def index

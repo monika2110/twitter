@@ -1,3 +1,5 @@
+
+
 <div class="form-group msg-form">
   <%= form_for( [@conversation, @message], class: "d-flex" , remote: true ) do |form| %>
     <% if message.errors.any? %>
@@ -11,8 +13,16 @@
         </ul>
       </div>
     <% end %>
+
+    <div class="message-new">
     <%= form.text_field :content, id: 'chat-text', class: "form-control msg-content", autocomplete: 'off',placeholder: "Start a new message" %>
-    <%= form.text_field :user_id, value: current_user.id, type: 'hidden' %>
-    <%= form.submit data: { disable_with: false }%>
-  <% end %>
+    <%= form.hidden_field :user_id, value: current_user.id%>
+    <button type="submit" class="create-message">
+      <span><i class="bi bi-send"></i></span>
+    </button>
+    </div>
+
+
+<% end %>
 </div>
+

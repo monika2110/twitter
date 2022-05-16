@@ -3,6 +3,7 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_likeable
+  before_action :set_users
 
   def create
     @like = @likeable.likes.new(like_params)
@@ -27,8 +28,6 @@ class LikesController < ApplicationController
   def set_likeable
     if params[:reply_id]
       @likeable = Reply.find_by_id(params[:reply_id])
-    elsif params[:retweet_id]
-      @likeable = Retweet.find_by_id(params[:retweet_id])
     elsif params[:tweet_id]
       @likeable = Tweet.find_by_id(params[:tweet_id])
 

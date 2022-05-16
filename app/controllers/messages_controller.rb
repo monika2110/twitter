@@ -4,6 +4,8 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_message, only: %i[destroy update]
   before_action :find_conversation
+  before_action :set_users
+
   # GET /messages or /messages.json
   def index
     @messages = @conversation.messages

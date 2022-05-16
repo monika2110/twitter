@@ -25,7 +25,7 @@ module NotificationsHelper
     when 'Like'
       'liked your Tweet'
     else
-      # type code here
+      ''
     end
   end
 
@@ -40,7 +40,7 @@ module NotificationsHelper
     when 'Like'
       tweet_path(notification.source.likeable_id)
     else
-      # type code here
+      ''
     end
   end
 end

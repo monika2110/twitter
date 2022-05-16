@@ -3,6 +3,8 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[create edit update destroy]
+  before_action :set_users
+
   # GET /tweets or /tweets.json
   def index
     @tweets = Tweet.all.order('created_at DESC')
@@ -79,6 +81,6 @@ class TweetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tweet_params
-    params.require(:tweet).permit(:content, :source_id, :source_type)
+    params.require(:tweet).permit(:content, :source_id, :source_type, :image)
   end
 end

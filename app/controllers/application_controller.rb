@@ -14,29 +14,32 @@ class ApplicationController < ActionController::Base
   def index
     followee_id = Relation.select(:followee_id).where(follower_id: current_user.id)
     @tweets = (Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).order('created_at DESC')
+    @users_to_follow = User.where.not(id: followee_id) - User.where(id: current_user.id)
   end
 
-
-
   private
+
   def set_reply_tweet
     @reply = Reply.new
     @tweet = Tweet.new
   end
 
+  def set_users
+    followee_id = Relation.select(:followee_id).where(follower_id: current_user.id)
+    @users_to_follow = User.where.not(id: followee_id) - User.where(id: current_user.id)
+  end
 
   protected
 
   def set_i18n_locale_from_params
-    if params[:locale]
-      if I18n.available_locales.map(&:to_s).include?(params[:locale])
-        I18n.locale = params[:locale]
-      else
-        flash.now[:notice] =
-          "#{params[:locale]} translation not available"
-        logger.error flash.now[:notice]
-      end
+    return unless params[:locale]
+
+    if I18n.available_locales.map(&:to_s).include?(params[:locale])
+      I18n.locale = params[:locale]
+    else
+      flash.now[:notice] =
+        "#{params[:locale]} translation not available"
+      logger.error flash.now[:notice]
     end
   end
-
 end

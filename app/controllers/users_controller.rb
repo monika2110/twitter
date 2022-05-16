@@ -2,6 +2,8 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
+  before_action :set_users
+
   # GET /users
   # GET /users.json
   def index

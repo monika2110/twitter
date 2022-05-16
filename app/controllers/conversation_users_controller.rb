@@ -3,6 +3,7 @@
 class ConversationUsersController < ApplicationController
   before_action :set_conversation, only: %i[create]
   before_action :set_conversation_user, only: %i[show edit update destroy]
+  before_action :set_users
 
   # GET /conversation_users or /conversation_users.json
   def index
@@ -25,7 +26,8 @@ class ConversationUsersController < ApplicationController
     @conversation_user = ConversationUser.new(conversation_user_params)
     user1 = ConversationUser.where(user_id: @conversation_user.user_id)
     user2 = ConversationUser.where(user_id: current_user.id)
-    conversation = Conversation.where(conversation_users: user1).and(Conversation.where(conversation_users: user2)).and(Conversation.where(private: true))
+    conversation = Conversation.where(conversation_users: user1).and(Conversation.where(conversation_users: user2)).
+      and(Conversation.where(private: true))
     if !params[:conversation_id] && conversation.present?
       redirect_to(conversation_messages_path(conversation.last))
     else
@@ -79,10 +81,10 @@ class ConversationUsersController < ApplicationController
   private
 
   def set_conversation
-    unless params[:conversation_id]
-      @conversation = Conversation.new
-      @current_user_conversation_user = ConversationUser.new(user: current_user, conversation: @conversation)
-    end
+    return if params[:conversation_id]
+
+    @conversation = Conversation.new
+    @current_user_conversation_user = ConversationUser.new(user: current_user, conversation: @conversation)
   end
 
   # Use callbacks to share common setup or constraints between actions.
