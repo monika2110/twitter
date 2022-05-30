@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_reply_tweet
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :set_i18n_locale_from_params
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name username])
@@ -15,10 +16,27 @@ class ApplicationController < ActionController::Base
     @tweets = (Tweet.where(user_id: followee_id).or(Tweet.where(user_id: current_user.id))).order('created_at DESC')
   end
 
-  private
 
+
+  private
   def set_reply_tweet
     @reply = Reply.new
     @tweet = Tweet.new
   end
+
+
+  protected
+
+  def set_i18n_locale_from_params
+    if params[:locale]
+      if I18n.available_locales.map(&:to_s).include?(params[:locale])
+        I18n.locale = params[:locale]
+      else
+        flash.now[:notice] =
+          "#{params[:locale]} translation not available"
+        logger.error flash.now[:notice]
+      end
+    end
+  end
+
 end

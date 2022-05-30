@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :conversation_users
   has_many :notifications, foreign_key: :recipient_id, class_name: 'Notification'
+  has_many :bookmarks
 
   has_one_attached :avatar
 

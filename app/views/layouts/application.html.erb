@@ -35,14 +35,14 @@
                         <path fill-rule="evenodd" d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.707L8 2.207l6.646 6.646a.5.5 0 0 0 .708-.707L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
                         <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Zm0 5.189c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.691 0-5.018Z"/>
                       </svg>
-                      &ensp;&ensp;<span id="nav_link"><strong>Home</strong></span>
+                      &ensp;&ensp;<span id="nav_link"><strong><%= t('.home') %></strong></span>
                     </a>
                   <% else %>
                   <a href="/" class="nav-link link-dark">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-heart" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.707L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.646a.5.5 0 0 0 .708-.707L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207l-5-5-5 5V13.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7.207Zm-5-.225C9.664 5.309 13.825 8.236 8 12 2.175 8.236 6.336 5.309 8 6.982Z"/>
                     </svg>
-                    &ensp;&ensp;<span id="nav_link">Home</span>
+                    &ensp;&ensp;<span id="nav_link"><%= t('.home') %></span>
                   </a>
                 <% end %>
               </div>
@@ -52,12 +52,12 @@
                 <% if controller.controller_name == 'notifications' %>
                   <a href="/notifications" class="nav-link link-dark">
                         <i class="bi bi-bell-fill" style="font-size: 25px; vertical-align: middle"></i>
-                        &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Notifications</strong></span>
+                        &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong><%= t('.notifications') %></strong></span>
                   </a>
                 <% else %>
                   <a href="/notifications" class="nav-link link-dark">
                     <i class="bi bi-bell" style="font-size: 25px; vertical-align: middle"></i>
-                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Notifications</span>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><%= t('.notifications') %></span>
                   </a>
                 <% end %>
               </div>
@@ -69,12 +69,12 @@
                 <% if controller.controller_name == 'conversations' %>
                   <a href="/conversations" class="nav-link link-dark">
                     <i class="bi bi-envelope-fill" style="font-size: 25px; vertical-align: middle"></i>
-                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Messages</strong></span>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong><%= t('.messages') %></strong></span>
                   </a>
                 <% else %>
                   <a href="/conversations" class="nav-link link-dark">
                     <i class="bi bi-envelope" style="font-size: 25px; vertical-align: middle"></i>
-                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Messages</span>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><%= t('.messages') %></span>
                   </a>
                 <% end %>
               </div>
@@ -85,14 +85,14 @@
             <li>
               <div class="nav-item">
                 <% if controller.controller_name == 'bookmarks' %>
-                  <a href="/" class="nav-link link-dark">
+                  <a href="/boomarks" class="nav-link link-dark">
                     <i class="bi bi-bookmark-fill" style="font-size: 25px; vertical-align: middle"></i>
-                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Bookmarks</strong></span>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong><%= t('.bookmarks') %></strong></span>
                   </a>
                 <% else %>
-                  <a href="/" class="nav-link link-dark">
+                  <a href="/bookmarks" class="nav-link link-dark">
                     <i class="bi bi-bookmark" style="font-size: 25px; vertical-align: middle"></i>
-                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Bookmarks</span>
+                    &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><%= t('.bookmarks') %></span>
                   </a>
                 <% end %>
               </div>
@@ -104,12 +104,12 @@
                   <%if current_page?(user_path(current_user)) %>
                     <a href="/users/<%=current_user.id %>" class="nav-link link-dark">
                       <i class="bi bi-person-fill" style="font-size: 25px; vertical-align: middle"></i>
-                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong>Profile</strong></span>
+                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><strong><%= t('.profile') %></strong></span>
                     </a>
                   <% else %>
                     <a href="/users/<%=current_user.id %>" class="nav-link link-dark">
                       <i class="bi bi-person" style="font-size: 25px; vertical-align: middle"></i>
-                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle">Profile</span>
+                      &ensp;&ensp;<span id="nav_link" style="vertical-align: middle"><%= t('.profile') %></span>
                     </a>
                   <%end %>
                 <%end %>
@@ -118,7 +118,7 @@
 
             <li>
                 <button type="button" class="btn btn-primary" href="<%= new_tweet_path %>" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <span style="font-size: large">Tweet</span>
+                  <span style="font-size: large"><%= t('.tweet') %></span>
                 </button>
             </li>
 
@@ -158,7 +158,11 @@
         <div class="row col-lg-5 col-md-8 col-sm-8">
           <nav class="navbar position-fixed navbar-expand-lg navbar-light nav-home" >
             <div class="col-lg-5 col-md-8 col-sm-8">
-              <a class="navbar-brand" href="/"><strong>Home</strong></a>
+              <% if  controller.controller_name == "application"%>
+                <a class="navbar-brand" href="/"><strong>Home</strong></a>
+              <% else %>
+                <a class="navbar-brand" href="/"><strong><%= controller.controller_name.capitalize %></strong></a>
+              <% end %>
             </div>
           </nav>
         </div>

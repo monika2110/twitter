@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @notifications = current_user.notifications.where.not(sender: current_user)
+    @notifications = current_user.notifications.where.not(sender: current_user).order('created_at DESC')
   end
 
   # GET /notifications/new

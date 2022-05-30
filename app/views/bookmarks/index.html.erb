@@ -1,0 +1,11 @@
+<% @bookmarks.each do |bookmark| %>
+  <%= button_to bookmark_path(bookmark),method: :get, class:'user-button' do %>
+    <div id='name'>
+      <%= user_avatar(bookmark.source.user,'50px' ) %>
+      <span><strong><%= link_to bookmark.source.user.name, user_path(bookmark.source.user_id), class: "link-dark name"%></strong>
+        <small>&ensp;@<%= bookmark.source.user.username  %></small></span>
+      <br><p ><%=bookmark.source.content%></p>
+    </div>
+  <% end %>
+<% end %>
+

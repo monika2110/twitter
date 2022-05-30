@@ -1,32 +1,37 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :conversation_users
-  devise_for :users
+  resources :bookmarks
+    devise_for :users
+    resources :conversation_users
+    resources :tweets do
+      resources :replies
+      resources :likes, only: [:create]
+      resources :bookmarks, only: [:create]
 
-  resources :tweets do
-    resources :replies
-    resources :likes, only: [:create]
-  end
+    end
 
-  resources :replies do
-    resources :replies
-    resources :likes, only: [:create]
-  end
+    resources :replies do
+      resources :replies
+      resources :likes, only: [:create]
+      resources :bookmarks, only: [:create]
+    end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'application#index'
+    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+    root 'application#index', via: :all
 
-  resources :users do
-    resources :relations, only: [:create]
-  end
+    resources :users do
+      resources :relations, only: [:create]
+    end
 
-  resources :relations, only: [:destroy]
-  resources :likes, only: [:destroy]
+    resources :relations, only: [:destroy]
+    resources :likes, only: [:destroy]
+    resources :bookmarks, only: [:destroy]
 
-  resources :conversations do
-    resources :messages
-  end
+    resources :conversations do
+      resources :messages
+    end
 
-  resources :notifications
+    resources :notifications
+
 end
