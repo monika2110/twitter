@@ -18,36 +18,34 @@ RSpec.describe '/conversations', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Conversation. As you add validations to Conversation, be sure to
   # adjust the attributes here as well.
+  current_user = User.first_or_create!(name: 'user', username: 'user', email: 'user@example.com', password: 'password',
+                                       password_confirmation: 'password')
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      'topic' => 'topic',
+      'private' => false
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      'id' => 'a',
+    }
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
+      sign_in(current_user)
       Conversation.create! valid_attributes
       get conversations_url
       expect(response).to be_successful
     end
   end
 
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      conversation = Conversation.create! valid_attributes
-      get conversation_url(conversation)
-      expect(response).to be_successful
-    end
-  end
 
-  describe 'GET /new' do
-    it 'renders a successful response' do
-      get new_conversation_url
-      expect(response).to be_successful
-    end
-  end
+
+
 
   describe 'GET /edit' do
     it 'renders a successful response' do
@@ -61,13 +59,9 @@ RSpec.describe '/conversations', type: :request do
     context 'with valid parameters' do
       it 'creates a new Conversation' do
         expect do
+          sign_in(current_user)
           post conversations_url, params: { conversation: valid_attributes }
         end.to change(Conversation, :count).by(1)
-      end
-
-      it 'redirects to the created conversation' do
-        post conversations_url, params: { conversation: valid_attributes }
-        expect(response).to redirect_to(conversation_url(Conversation.last))
       end
     end
 
@@ -77,56 +71,18 @@ RSpec.describe '/conversations', type: :request do
           post conversations_url, params: { conversation: invalid_attributes }
         end.to change(Conversation, :count).by(0)
       end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post conversations_url, params: { conversation: invalid_attributes }
-        expect(response).to be_successful
-      end
     end
   end
 
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested conversation' do
-        conversation = Conversation.create! valid_attributes
-        patch conversation_url(conversation), params: { conversation: new_attributes }
-        conversation.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the conversation' do
-        conversation = Conversation.create! valid_attributes
-        patch conversation_url(conversation), params: { conversation: new_attributes }
-        conversation.reload
-        expect(response).to redirect_to(conversation_url(conversation))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        conversation = Conversation.create! valid_attributes
-        patch conversation_url(conversation), params: { conversation: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
 
   describe 'DELETE /destroy' do
     it 'destroys the requested conversation' do
+      sign_in(current_user)
+
       conversation = Conversation.create! valid_attributes
       expect do
         delete conversation_url(conversation)
       end.to change(Conversation, :count).by(-1)
-    end
-
-    it 'redirects to the conversations list' do
-      conversation = Conversation.create! valid_attributes
-      delete conversation_url(conversation)
-      expect(response).to redirect_to(conversations_url)
     end
   end
 end

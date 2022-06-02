@@ -44,7 +44,7 @@ class ConversationsController < ApplicationController
         @conversation.save
 
         format.html do
-          redirect_to conversation_messages_path(@conversation, locale: I18n.locale),
+          redirect_to conversation_messages_path(@conversation),
                       notice: 'Conversation was successfully created.'
         end
         format.json { render :show, status: :created, location: @conversation }

@@ -10,7 +10,7 @@ class Tweet < ApplicationRecord
   has_many :notifications, as: :source
   validates :content, presence: true, if: :original_tweet?
   validates :content, length: { maximum: 280 }, if: :original_tweet?
-  has_many_attached :image
+  has_many_attached :images
 
   def original_tweet?
     source.nil?

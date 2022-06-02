@@ -50,7 +50,7 @@
                 <i class="bi bi-heart-fill"></i>
               <% end %>
             <% else %>
-              <%= button_to tweet_likes_path(tweet)  , class:'like_button' ,remote: true  do %>
+              <%= button_to tweet_likes_path(tweet)  , class:'like_button'   do %>
                 <i class="bi bi-heart"></i>
               <% end %>
             <% end %>
@@ -162,7 +162,7 @@
                   <i class="bi bi-heart-fill"></i>
                 <% end %>
               <% else %>
-                <%= button_to reply_likes_path(tweet.source)  , class:'like_button', remote: true  do %>
+                <%= button_to reply_likes_path(tweet.source)  , class:'like_button'  do %>
                   <i class="bi bi-heart"></i>
                 <% end %>
               <% end %>
@@ -226,7 +226,7 @@
                       <i class="bi-bookmark-fill"></i>&ensp;Bookmark
                     <% end %>
                   <% else %>
-                    <%= button_to reply_bookmarks_path(tweet.bookmarkable)  , class: "dropdown-item", type: "button" do %>
+                    <%= button_to reply_bookmarks_path(tweet.source)  , class: "dropdown-item", type: "button" do %>
                       <i class="bi-bookmark-plus"></i>&ensp;Bookmark
                     <% end %>
                   <% end %>
@@ -271,7 +271,7 @@
                   <i class="bi bi-heart-fill"></i>
                 <% end %>
               <% else %>
-                <%= button_to tweet_likes_path(tweet.source)  , class:'like_button', remote: true  do %>
+                <%= button_to tweet_likes_path(tweet.source)  , class:'like_button' do %>
                   <i class="bi bi-heart"></i>
                 <% end %>
               <% end %>

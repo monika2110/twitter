@@ -11,7 +11,7 @@ consumer.subscriptions.create("ConversationChannel", {
   },
 
   received(data) {
-
     $('#msg-div').append(data.msg)
+    scroll_bottom()
     }
 });

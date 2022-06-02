@@ -21,16 +21,7 @@ class MessagesController < ApplicationController
   def create
     @message = @conversation.messages.build(message_params)
     @message.user = current_user
-    respond_to do |format|
-      if @message.save
-        ActionCable.server.broadcast('conversation_channel', { msg: @message.content })
-      elsif format.html { redirect_to conversation_messages_path(@conversation) }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
+    ActionCable.server.broadcast('conversation_channel', { msg: render_message(@message) }) if @message.save
   end
 
   # PATCH/PUT /messages/1 or /messages/1.json
@@ -51,7 +42,7 @@ class MessagesController < ApplicationController
     @message.destroy
 
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to conversation_messages_path, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

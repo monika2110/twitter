@@ -1,3 +1,6 @@
-<div id='msg-div'><%= render @messages %></div>
-
+<div id="scroll-msgs">
+<div id='msg-div'>
+  <%= render @messages %>
+</div>
+</div>
 <%= render partial: 'form' ,locals: { message: @message} %>
